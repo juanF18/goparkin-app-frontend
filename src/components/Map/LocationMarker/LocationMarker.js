@@ -15,12 +15,12 @@ export function LocationMarker() {
    */
   const [position, setPosition] = useState(null);
 
+  //Uso del mapa
   const map = useMap();
   useEffect(() => {
     map
       .locate({ enableHighAccuracy: true, watch: true })
       .on("locationfound", (e) => {
-        console.log(e.latlng.wrap());
         setPosition(e.latlng.wrap());
         map.flyTo(e.latlng, map.getZoom());
       });
