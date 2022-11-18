@@ -2,6 +2,11 @@ import React from "react";
 import { Container, Nav, Navbar } from "react-bootstrap";
 import "./NavBar.css";
 
+/**
+ * Funcion que nos retorna el navbar con sus respectivas opciones
+ *
+ * @returns Componente de Navbar
+ */
 export function NavBar() {
   return (
     <>
