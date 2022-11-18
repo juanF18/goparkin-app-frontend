@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Marker, Popup, useMap } from "react-leaflet";
-//import { getCurrentLocation } from "../../../helpers";
+import { IconPin } from "../../../assets";
+import { IconPinCreation } from "../../../helpers";
 
 export function LocationMarker() {
   /**
@@ -16,15 +17,17 @@ export function LocationMarker() {
 
   const map = useMap();
   useEffect(() => {
-    map.locate().on("locationfound", (e) => {
-      console.log(e.latlng);
-      setPosition(e.latlng.wrap());
-      map.flyTo(e.latlng, map.getZoom());
-    });
+    map
+      .locate({ enableHighAccuracy: true, watch: true })
+      .on("locationfound", (e) => {
+        console.log(e.latlng.wrap());
+        setPosition(e.latlng.wrap());
+        map.flyTo(e.latlng, map.getZoom());
+      });
   }, [map]);
 
   return position === null ? null : (
-    <Marker position={position}>
+    <Marker position={position} icon={IconPinCreation(IconPin)}>
       <Popup>Usted esta aqui</Popup>
     </Marker>
   );
