@@ -1,0 +1,25 @@
+.popup_container {
+  width: 100%;
+  height: 100%;
+}
+
+.popup_name_open {
+  background-color: white;
+  padding-bottom: 10px;
+}
+h4 {
+  text-align: center;
+}
+
+.popup_price_places {
+  height: 50px;
+}
+
+.popup_rating {
+}
+
+.popup_comments {
+}
+
+.popup_buttons {
+}

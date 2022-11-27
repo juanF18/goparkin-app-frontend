@@ -1,7 +1,9 @@
 import React from "react";
-import { Marker } from "react-leaflet";
+import "./Markers.css";
+import { Marker, Popup } from "react-leaflet";
 import { IconPin } from "../../../assets";
 import { IconPinCreation } from "../../../helpers";
+import { PopupContent } from "../PopupContent";
 
 /**
  * Funcion para crear Marcadores dependiendo las coordenadas que nos llegen
@@ -11,7 +13,12 @@ import { IconPinCreation } from "../../../helpers";
 
 export function Markers(props) {
   const { coords } = props;
+
   return coords === null ? null : (
-    <Marker position={coords} icon={IconPinCreation(IconPin)}></Marker>
+    <Marker position={coords} icon={IconPinCreation(IconPin)} autoPan={true}>
+      <Popup>
+        <PopupContent />
+      </Popup>
+    </Marker>
   );
 }
