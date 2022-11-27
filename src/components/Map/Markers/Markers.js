@@ -1,7 +1,7 @@
 import React from "react";
 import "./Markers.css";
 import { Marker, Popup } from "react-leaflet";
-import { IconPin } from "../../../assets";
+import { ParkingPin } from "../../../assets";
 import { IconPinCreation } from "../../../helpers";
 import { PopupContent } from "../PopupContent";
 
@@ -15,7 +15,7 @@ export function Markers(props) {
   const { coords } = props;
 
   return coords === null ? null : (
-    <Marker position={coords} icon={IconPinCreation(IconPin)} autoPan={true}>
+    <Marker position={coords} icon={IconPinCreation(ParkingPin)} autoPan={true}>
       <Popup>
         <PopupContent />
       </Popup>
