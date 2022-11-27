@@ -1,4 +1,5 @@
 import React from "react";
+import { FaCarSide, FaMotorcycle } from "react-icons/fa";
 import "./PopupContent.css";
 
 export function PopupContent() {
@@ -10,7 +11,18 @@ export function PopupContent() {
         <strong>Horas de servicio</strong> 7am - 7pm
       </div>
       <hr />
-      <div className="popup_price_places">Precios y lugares</div>
+      <div className="popup_price_places">
+        <div className="car">
+          <FaCarSide size={30} />
+          Places: <br />
+          Price :
+        </div>
+        <div className="motorcycle">
+          <FaMotorcycle size={30} />
+          Places: <br />
+          Prices
+        </div>
+      </div>
       <hr />
       <div className="popup_rating">Rating</div>
       <hr />

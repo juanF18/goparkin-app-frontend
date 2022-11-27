@@ -7,7 +7,7 @@ export function IconPinCreation(icon) {
     iconAnchor: null,
     shadowUrl: null,
     shadowSize: null,
-    iconSize: [35, 35],
+    iconSize: [40, 40],
     className: "leaflet-venue-icon",
   });
 }
