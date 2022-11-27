@@ -1,6 +1,7 @@
 import React from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
+import { Markers } from "../Markers";
 
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
@@ -22,6 +23,7 @@ export function MapView() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker />
+      <Markers coords={centerMap} />
     </MapContainer>
   );
 }
