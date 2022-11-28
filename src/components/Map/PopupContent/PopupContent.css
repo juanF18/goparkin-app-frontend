@@ -15,14 +15,19 @@ h4 {
   display: grid;
   grid-template-columns: 50%, 50%;
   display: flex;
-  height: 50px;
+  height: 70px;
 }
 .car,
 .motorcycle {
   width: 127px;
+  display: inline;
 }
 
 .popup_rating {
+  display: block;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
 
 .popup_comments {
