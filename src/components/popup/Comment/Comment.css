@@ -1,0 +1,17 @@
+.no-user {
+  width: 40px;
+  height: 40px;
+}
+
+.popup_comment {
+  display: flex;
+  align-items: flex-start;
+}
+
+.popup_comment > div {
+  margin-left: 10px;
+}
+
+.popup_comment > div > p {
+  margin: 10px 0 10px 0;
+}

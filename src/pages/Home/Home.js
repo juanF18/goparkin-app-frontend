@@ -1,6 +1,6 @@
 import React from "react";
 import { NavBar } from "../../components/layout";
-import { MapView } from "../../components/Map";
+import { MapView } from "../../components/map";
 import "./Home.css";
 
 export function Home() {
