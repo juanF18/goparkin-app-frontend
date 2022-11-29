@@ -1,0 +1,10 @@
+.popup_price_places {
+  display: flex;
+  align-items: flex-start;
+  height: 70px;
+}
+.car,
+.motorcycle {
+  width: 127px;
+  display: inline;
+}
