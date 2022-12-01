@@ -1,5 +1,5 @@
 import React from "react";
-import { NameOpenDay, Spaces, RatingStars, Comment } from "../../popup";
+import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button } from "react-bootstrap";
 import "./PopupContent.css";
 
