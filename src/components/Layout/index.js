@@ -1,1 +1,1 @@
-export * from "./layout-components";
+export * from "./NavBar";
