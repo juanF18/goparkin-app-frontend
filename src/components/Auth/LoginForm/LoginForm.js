@@ -20,15 +20,20 @@ export function LoginForm() {
             type={showPassword ? "text" : "password"}
             placeholder="Password"
           />
-          <Button onClick={onShowHidenPassword}>
+          <Button onClick={onShowHidenPassword} variant="secondary">
             {showPassword ? <FaEyeSlash /> : <FaEye />}
           </Button>
         </InputGroup>
       </Form.Group>
 
-      <Button className="btn-login" variant="primary" type="submit">
+      <Button className="btn-login" variant="success" type="submit">
         Sign in
       </Button>
+      <div className="login-options">
+        <p>
+          Aun no estas registrado? <span>Registrarse</span>
+        </p>
+      </div>
     </Form>
   );
 }
