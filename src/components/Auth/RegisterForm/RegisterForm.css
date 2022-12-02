@@ -1,0 +1,15 @@
+.header-register {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-check-label {
+  padding-left: 10px;
+}
+
+#custom-switch {
+  width: 2.5em;
+  height: 1.5rem;
+  padding-bottom: 10px;
+}
