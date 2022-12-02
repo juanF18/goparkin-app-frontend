@@ -8,6 +8,7 @@ export function LoginForm() {
   const onShowHidenPassword = () => setShowPassword((prevState) => !prevState);
   return (
     <Form>
+      <h2 className="title-login">Find the best place for your vehicle!</h2>
       <Form.Group className="mb-3" controlId="formBasicEmail">
         <Form.Label>Email address</Form.Label>
         <Form.Control type="email" placeholder="Enter email" />
@@ -31,7 +32,8 @@ export function LoginForm() {
       </Button>
       <div className="login-options">
         <p>
-          Aun no estas registrado? <span>Registrarse</span>
+          Are you not registered?{" "}
+          <span className="link-register-form">Sign up</span>
         </p>
       </div>
     </Form>
