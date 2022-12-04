@@ -13,3 +13,8 @@
   height: 1.5rem;
   padding-bottom: 10px;
 }
+
+.submitBtn {
+  padding-left: 50px;
+  padding-right: 50px;
+}
