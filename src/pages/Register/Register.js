@@ -4,7 +4,7 @@ import { RegisterForm } from "../../components/Auth";
 
 export function Register() {
   return (
-    <div className="register-contariner">
+    <div className="register-container">
       <RegisterForm />
     </div>
   );
