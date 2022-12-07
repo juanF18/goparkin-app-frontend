@@ -32,7 +32,7 @@ export function RegisterForm() {
   };
 
   return (
-    <>
+    <div className="container_register_form">
       <div className="header-register">
         <h1>Register</h1>
         <Form.Check
@@ -89,6 +89,6 @@ export function RegisterForm() {
           </Button>
         </Row>
       </Form>
-    </>
+    </div>
   );
 }
