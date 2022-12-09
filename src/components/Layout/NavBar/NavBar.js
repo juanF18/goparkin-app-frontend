@@ -27,6 +27,9 @@ export function NavBar() {
             </Nav.Link>
             <Nav.Link>Features</Nav.Link>
             <Nav.Link>Pricing</Nav.Link>
+            <Nav.Link as={Link} to="/reservations">
+              Reservations
+            </Nav.Link>
           </Nav>
           <Nav className="d-flex">
             <Nav.Link as={Link} to="/login" active={isCurrentPage("/login")}>
