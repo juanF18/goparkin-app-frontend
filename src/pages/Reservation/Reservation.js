@@ -2,7 +2,7 @@
  * Contiene los elementos de la sección reserva
  * @returns
  */
-export default function Reservation() {
+export function Reservation() {
   const data = [
     { parking_id: 1, date: new Date().getDate(), car: "CAD120" },
     { parking_id: 2, date: new Date().getDate(), car: "CAD110" },

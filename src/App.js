@@ -1,4 +1,3 @@
-import { Home } from "./pages";
 import { UnLoggedNavigation } from "./routes";
 import { LoggedNavigation } from "./routes/LoggedNavigation";
 
