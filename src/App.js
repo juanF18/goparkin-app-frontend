@@ -1,5 +1,6 @@
 import { Home } from "./pages";
 import { UnLoggedNavigation } from "./routes";
+import { LoggedNavigation } from "./routes/LoggedNavigation";
 
 function App() {
   /**
@@ -9,7 +10,7 @@ function App() {
   const user = null;
 
   //Si es tipo user me retorna la navegacion del usuario
-  return !user ? <UnLoggedNavigation /> : <Home />;
+  return user ? <UnLoggedNavigation /> : <LoggedNavigation />;
 }
 
 export default App;
