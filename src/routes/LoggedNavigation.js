@@ -1,8 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UnLoggedLayout } from "../layout";
-import { Home, Login } from "../pages";
-import Reservation from "../pages/Reservation/Reservation";
+import { Home, Login, Reservation } from "../pages";
 
 /**
  * Funcion que nos genera las rutas y enviva por props el componente
