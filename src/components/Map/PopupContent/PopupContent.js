@@ -1,15 +1,37 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./PopupContent.css";
+import { URL } from "../../../constants";
+import axios from "axios";
 function ReservaButton() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [date, setDate] = useState("");
+  const [hour, setHour] = useState("");
+
+  useEffect(() => {
+    console.log(hour);
+  }, [hour]);
+
   async function sendRequest() {
     handleClose();
+    await axios
+      .post(`${URL}/reservation`, {
+        date,
+        hour,
+      })
+      .then(function (response) {
+        // console.log(response);
+        return;
+      })
+      .catch(function (error) {
+        // console.log(error);
+        return;
+      });
     alert("Enviando formulario");
   }
 
@@ -38,10 +60,18 @@ function ReservaButton() {
           </Form.Select>
           <br></br>
           <p>Date</p>
-          <input type="date" />
+          <input
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
           <br></br> <br></br>
           <p>Time</p>
-          <input type="time" />
+          <input
+            type="time"
+            value={hour}
+            onChange={(e) => setHour(e.target.value)}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
