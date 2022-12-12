@@ -1,6 +1,6 @@
 import React from "react";
 import "./Markers.css";
-import { Marker, Popup } from "react-leaflet";
+import { Marker, Popup, Tooltip } from "react-leaflet";
 import { ParkingPin } from "../../../assets";
 import { IconPinCreation } from "../../../helpers";
 import { PopupContent } from "../PopupContent";
@@ -13,12 +13,18 @@ import { PopupContent } from "../PopupContent";
 
 export function Markers(props) {
   const { coords } = props;
-
   return coords === null ? null : (
-    <Marker position={coords} icon={IconPinCreation(ParkingPin)} autoPan={true}>
-      <Popup>
-        <PopupContent />
-      </Popup>
-    </Marker>
+    <>
+      <Marker
+        position={coords}
+        icon={IconPinCreation(ParkingPin)}
+        autoPan={true}
+      >
+        <Tooltip>Nombre parquedero</Tooltip>
+        <Popup>
+          <PopupContent />
+        </Popup>
+      </Marker>
+    </>
   );
 }
