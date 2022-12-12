@@ -1,11 +1,35 @@
-export function ReservationOwner({ data }) {
+import { useEffect, useState } from "react";
+import { Button, Form, Modal } from "react-bootstrap";
+import { DeletePopUp } from "../../components/Popup/DeletePopUp";
+import "./ReservationOwner.css";
+
+export function ReservationOwner({ data, setData }) {
+  function StatusButton(props) {
+    const [content, setContent] = useState(props.content);
+    function handle() {
+      content === "Pending" ? setContent("Approved") : setContent("Pending");
+    }
+    if (content == "Pending") {
+      return (
+        <Button variant="warning" onClick={handle}>
+          {content}
+        </Button>
+      );
+    } else {
+      return (
+        <Button variant="success" onClick={handle}>
+          {content}
+        </Button>
+      );
+    }
+  }
+
   return (
     <>
       <h3>Owner</h3>
       <table className="table">
         <thead>
           <tr>
-            {/* <th scope="col">parking_id</th> */}
             <th scope="col">User name</th>
             <th scope="col">Date</th>
             <th scope="col">Hour</th>
@@ -18,25 +42,18 @@ export function ReservationOwner({ data }) {
         <tbody>
           {data.map((item) => {
             return (
-              <tr key={item.parking_id}>
+              <tr key={item.id}>
                 <td>{item.userName}</td>
                 <td>{item.date}</td>
                 <td>{item.hour}</td>
                 <td>{item.car}</td>
 
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <DeletePopUp title="reservation" />
                 </td>
-
-                {item.status === "Pending" ? (
-                  <td>
-                    <button className="btn btn-warning">{item.status}</button>
-                  </td>
-                ) : (
-                  <td>
-                    <button className="btn btn-success">{item.status}</button>
-                  </td>
-                )}
+                <td>
+                  <StatusButton content={item.status} />
+                </td>
               </tr>
             );
           })}
