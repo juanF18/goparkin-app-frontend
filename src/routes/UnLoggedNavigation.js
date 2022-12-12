@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UnLoggedLayout } from "../layout";
-import { Home, Login } from "../pages";
+import { Home, Login, Register } from "../pages";
 
 /**
  * Funcion que nos genera las rutas y enviva por props el componente
@@ -14,6 +14,7 @@ export function UnLoggedNavigation() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </UnLoggedLayout>
     </BrowserRouter>
