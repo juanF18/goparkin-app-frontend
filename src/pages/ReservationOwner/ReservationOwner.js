@@ -9,7 +9,7 @@ export function ReservationOwner({ data, setData }) {
     function handle() {
       content === "Pending" ? setContent("Approved") : setContent("Pending");
     }
-    if (content == "Pending") {
+    if (content === "Pending") {
       return (
         <Button variant="warning" onClick={handle}>
           {content}
