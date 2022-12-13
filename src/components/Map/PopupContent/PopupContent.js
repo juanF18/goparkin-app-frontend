@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./PopupContent.css";
-import { URL } from "../../../constants";
-import axios from "axios";
+import { postRequestReservation } from "../../../services";
+
 function ReservaButton() {
   const [show, setShow] = useState(false);
 
@@ -19,19 +19,7 @@ function ReservaButton() {
 
   async function sendRequest() {
     handleClose();
-    await axios
-      .post(`${URL}/reservation`, {
-        date,
-        hour,
-      })
-      .then(function (response) {
-        // console.log(response);
-        return;
-      })
-      .catch(function (error) {
-        // console.log(error);
-        return;
-      });
+    postRequestReservation(date, hour);
     alert("Enviando formulario");
   }
 
@@ -42,7 +30,7 @@ function ReservaButton() {
         variant="success"
         onClick={handleShow}
       >
-        Reservar
+        Make reservation
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -60,14 +48,15 @@ function ReservaButton() {
           </Form.Select>
           <br></br>
           <p>Date</p>
-          <input
-            type="date"
+          <Form.Control
             value={date}
+            type="date"
             onChange={(e) => setDate(e.target.value)}
+            placeholder="Enter date"
           />
           <br></br> <br></br>
           <p>Time</p>
-          <input
+          <Form.Control
             type="time"
             value={hour}
             onChange={(e) => setHour(e.target.value)}
