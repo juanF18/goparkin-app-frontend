@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./PopupContent.css";
+import { postRequestReservation } from "../../../services";
+
 function ReservaButton() {
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [date, setDate] = useState("");
+  const [hour, setHour] = useState("");
+  const [plate, setPlate] = useState("");
+
+  useEffect(() => {
+    console.log(hour);
+  }, [hour]);
+
   async function sendRequest() {
     handleClose();
+    postRequestReservation(date, hour, plate);
     alert("Enviando formulario");
   }
 
@@ -20,7 +31,7 @@ function ReservaButton() {
         variant="success"
         onClick={handleShow}
       >
-        Reservar
+        Make reservation
       </Button>
 
       <Modal show={show} onHide={handleClose}>
@@ -30,18 +41,31 @@ function ReservaButton() {
         <Modal.Body>
           <p>parking name: Name</p>
           <p>Vehicle plate</p>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            onChange={(e) => {
+              setPlate(e.target.value);
+            }}
+          >
             <option>Choose your vehicle</option>
-            <option value="1">CAD 123</option>
-            <option value="2">VEH 512</option>
-            <option value="3">ABC 567</option>
+            <option value="CAD123">CAD 123</option>
+            <option value="VEH512">VEH 512</option>
+            <option value="VEH512">ABC 567</option>
           </Form.Select>
           <br></br>
           <p>Date</p>
-          <input type="date" />
+          <Form.Control
+            value={date}
+            type="date"
+            onChange={(e) => setDate(e.target.value)}
+            placeholder="Enter date"
+          />
           <br></br> <br></br>
           <p>Time</p>
-          <input type="time" />
+          <Form.Control
+            type="time"
+            value={hour}
+            onChange={(e) => setHour(e.target.value)}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
