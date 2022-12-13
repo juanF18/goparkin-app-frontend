@@ -8,10 +8,11 @@ import { ReservationUser } from "../ReservationUser";
  * @returns
  */
 export function Reservation() {
-  const [userType, setUserType] = useState("owner"); //modificar para visualizar
+  const [userType, setUserType] = useState("admin");
 
-  const data = [
+  const [data, setData] = useState([
     {
+      id: 1,
       parking_id: 1,
       date: "2022-10-10",
       hour: "20:10",
@@ -20,6 +21,7 @@ export function Reservation() {
       status: "Pending",
     },
     {
+      id: 2,
       parking_id: 2,
       date: "2022-10-15",
       hour: "15:03",
@@ -27,7 +29,16 @@ export function Reservation() {
       userName: "Laura Perez",
       status: "Approved",
     },
-  ];
+    {
+      id: 3,
+      parking_id: 5,
+      date: "2022-12-20",
+      hour: "10:3",
+      car: "ABC456",
+      userName: "Sara Torres",
+      status: "Approved",
+    },
+  ]);
 
   function SelectUser(props) {
     return (
@@ -67,7 +78,7 @@ export function Reservation() {
       <>
         <SelectUser />
         <br></br>
-        <ReservationOwner data={data} />
+        <ReservationOwner data={data} setData={setData} />
       </>
     );
   }

@@ -1,3 +1,6 @@
+import { DeletePopUp } from "../../components/Popup/DeletePopUp";
+import { UpdateReservationPopUp } from "../../components/Popup/UpdateReservationPopUp";
+
 export function ReservationUser({ data }) {
   return (
     <>
@@ -19,7 +22,7 @@ export function ReservationUser({ data }) {
         <tbody>
           {data.map((item) => {
             return (
-              <tr key={item.parking_id}>
+              <tr key={item.id}>
                 <td>{item.parking_id}</td>
                 <td>{item.userName}</td>
                 <td>{item.date}</td>
@@ -28,10 +31,10 @@ export function ReservationUser({ data }) {
                 <td>{item.status}</td>
 
                 <td>
-                  <button className="btn btn-danger">Delete</button>
+                  <DeletePopUp title="reservation" />
                 </td>
                 <td>
-                  <button className="btn btn-warning">Edit</button>
+                  <UpdateReservationPopUp userType="user" />
                 </td>
               </tr>
             );
