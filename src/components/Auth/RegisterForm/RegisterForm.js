@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Col, Form, Row, Button } from "react-bootstrap";
 import { ParkingForm, VehicleForm } from "../../Forms";
+import { storeRegister } from "../../../services";
 
 export function RegisterForm() {
 
   const [ownerOrUser, setOwnerOrUser] = useState(false);
+  const [idPeople, setIdPeople] = useState(null);
 
   const onChangeType = () => {
     setOwnerOrUser((prevState) => !prevState);
@@ -15,8 +17,27 @@ export function RegisterForm() {
    * @param {*} event captura de formularios
    */
   const formSubmit = (event) => {
+
+    // Escoge el rol y la información correspondiente
+    // en base al formulario que llena el usuario
+    let id_rol = "";
+
+    if (ownerOrUser) {
+      // Owner
+      id_rol = "2";
+    }
+    else {
+      // User
+      id_rol = "1";
+    }
+
+    const name = event.target.name.value;
+    const last_name = event.target.lastName.value;
+    const phone = event.target.phone.value;
+    const email = event.target.email.value;
     const password = event.target.password.value;
     const confirmPassword = event.target.confirmPassword.value;
+
     event.preventDefault();
 
     console.log({
@@ -25,7 +46,17 @@ export function RegisterForm() {
       phone: event.target.phone.value,
       email: event.target.email.value,
       password: password === confirmPassword ? password : "",
+      plate: event.target.plate.value,
     });
+
+    // Promise
+    
+    setIdPeople(storeRegister(id_rol, name, last_name, phone, email, password));
+
+
+    alert('Enviando Formulario de Registro '+ idPeople);
+
+    // Redireccionar al login
   };
 
   return (
