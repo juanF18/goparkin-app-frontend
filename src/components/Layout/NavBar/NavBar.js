@@ -19,14 +19,18 @@ export function NavBar() {
       <Navbar bg="dark" variant="dark">
         <Container>
           <Navbar.Brand as={Link} to="/">
-            GoParkin
+            GoParking
           </Navbar.Brand>
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" active={isCurrentPage("/")}>
               Home
             </Nav.Link>
-            <Nav.Link>Features</Nav.Link>
-            <Nav.Link>Pricing</Nav.Link>
+            <Nav.Link as={Link} to="/adminRols">
+              AdminRols
+            </Nav.Link>
+            <Nav.Link as={Link} to="/resetPassword">
+              ResetPassword
+            </Nav.Link>
             <Nav.Link as={Link} to="/reservations">
               Reservations
             </Nav.Link>
@@ -35,11 +39,7 @@ export function NavBar() {
             <Nav.Link as={Link} to="/login" active={isCurrentPage("/login")}>
               Sign in
             </Nav.Link>
-            <Nav.Link
-              as={Link}
-              to="/register"
-              active={isCurrentPage("/register")}
-            >
+            <Nav.Link as={Link} to="/register" active={isCurrentPage("/register")}>
               Sign up
             </Nav.Link>
           </Nav>

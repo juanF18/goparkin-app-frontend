@@ -4,17 +4,14 @@ import { Col, Form, Row, Button } from "react-bootstrap";
 import { ParkingForm, VehicleForm } from "../../Forms";
 
 export function RegisterForm() {
-  /**
-   * false -> user
-   * true -> owner
-   */
+
   const [ownerOrUser, setOwnerOrUser] = useState(false);
 
   const onChangeType = () => {
     setOwnerOrUser((prevState) => !prevState);
   };
   /**
-   * Toma los valores de los formualarios y los convierte en un objeto.
+   * Toma los valores de los formularios y los convierte en un objeto.
    * @param {*} event captura de formularios
    */
   const formSubmit = (event) => {
