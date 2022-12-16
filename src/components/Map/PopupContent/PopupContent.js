@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./PopupContent.css";
-import { postRequestReservation } from "../../../services/ReservationService";
+import { postRequestReservation } from "../../../services";
 
 function ReservaButton() {
   const [show, setShow] = useState(false);
