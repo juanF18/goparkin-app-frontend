@@ -1,19 +1,34 @@
 import { useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
-export function UpdateReservationPopUp(props) {
+import { updateRequestReservation } from "../../../services";
+export function UpdateReservationPopUp({
+  userType,
+  date,
+  hour,
+  plate,
+  id,
+  status,
+}) {
+  //lo utiliza el actor tipo "User"
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [dateUser, setDateUser] = useState(date);
+  const [hourUser, setHourUser] = useState(hour);
+  const [plateUser, setPlateUser] = useState(plate);
+
   async function sendRequest() {
     handleClose();
+    // updateRequestReservation(date, hour, plate, id);
+    // updateRequestReservation(date, hour, plate, id, status);
     alert("Enviando formulario");
   }
 
   return (
     <>
-      {props.userType === "admin" ? (
+      {userType === "admin" ? (
         <Button
           className="btn-reservation"
           variant="warning"
@@ -40,17 +55,37 @@ export function UpdateReservationPopUp(props) {
         <Modal.Body>
           <p>parking name: Name</p>
           <p>Vehicle plate</p>
-          <Form.Select aria-label="Default select example">
+          <Form.Select
+            onChange={(e) => {
+              setPlateUser(e.target.value);
+            }}
+            value={plateUser}
+          >
             <option>Choose your vehicle</option>
-            <option value="1">CAD 123</option>
-            <option value="2">VEH 512</option>
-            <option value="3">ABC 567</option>
+            <option value="CAD123">CAD 123</option>
+            <option value="VEH512">VEH 512</option>
+            <option value="ABC567">ABC 567</option>
           </Form.Select>
           <br></br>
           <p>Date</p>
-          <Form.Control type="date" placeholder="Enter date" /> <br></br>
+          <Form.Control
+            type="date"
+            placeholder="Enter date"
+            value={dateUser}
+            onChange={(e) => {
+              setDateUser(e.target.value);
+            }}
+          />
+          <br></br>
           <p>Time</p>
-          <Form.Control type="time" placeholder="Enter time" />
+          <Form.Control
+            type="time"
+            placeholder="Enter time"
+            value={hourUser}
+            onChange={(e) => {
+              setHourUser(e.target.value);
+            }}
+          />
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>

@@ -23,18 +23,28 @@ export function ReservationUser({ data }) {
           {data.map((item) => {
             return (
               <tr key={item.id}>
-                <td>{item.parking_id}</td>
-                <td>{item.userName}</td>
+                {item.id_parking == null ? (
+                  <td>null</td>
+                ) : (
+                  <td>{item.id_parking}</td>
+                )}
+                {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
                 <td>{item.date}</td>
                 <td>{item.hour}</td>
-                <td>{item.car}</td>
+                <td>{item.plate}</td>
                 <td>{item.status}</td>
-
                 <td>
-                  <DeletePopUp title="reservation" />
+                  <DeletePopUp title="reservation" id={item.id} />
                 </td>
                 <td>
-                  <UpdateReservationPopUp userType="user" />
+                  <UpdateReservationPopUp
+                    userType="user"
+                    date={item.date}
+                    hour={item.hour}
+                    plate={item.plate}
+                    id={item.id}
+                    status={item.status}
+                  />
                 </td>
               </tr>
             );

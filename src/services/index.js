@@ -1,2 +1,2 @@
-export * from "./postRequestReservation";
+export * from "./ReservationService";
 export * from "./RegisterService";

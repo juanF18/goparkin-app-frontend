@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Button, Modal } from "react-bootstrap";
+import { deleteRequestReservation } from "../../../services";
 
 /**
  *
@@ -15,6 +16,7 @@ export function DeletePopUp(props) {
 
   async function sendRequest() {
     handleClose();
+    deleteRequestReservation(props.id);
     alert("Enviando formulario");
   }
 
