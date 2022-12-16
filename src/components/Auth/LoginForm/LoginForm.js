@@ -89,6 +89,20 @@ export function LoginForm() {
             </a>
           </span>
         </p>
+        <p>
+          Did you forget your password
+          <br />
+          <span className="link-register-form">
+            <a
+              style={{ color: "black" }}
+              as={Link}
+              to="/resetPassword"
+              href="/resetPassword"
+            >
+              Recover Password
+            </a>
+          </span>
+        </p>
       </div>
     </Form>
   );

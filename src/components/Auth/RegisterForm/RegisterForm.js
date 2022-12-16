@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { getCurrentLocation } from "../../../helpers";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { storeRegister } from "../../../services";
 
@@ -15,7 +16,7 @@ export function RegisterForm() {
    * Toma los valores de los formularios y los convierte en un objeto.
    * @param {*} event captura de formularios
    */
-  const formSubmit = (event) => {
+  const formSubmit = async (event) => {
     // Escoge el rol y la información correspondiente
     // en base al formulario que llena el usuario
     let id_rol = "";
