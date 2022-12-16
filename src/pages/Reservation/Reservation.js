@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Alert } from "react-bootstrap";
 import { Loading } from "../../helpers";
 import { getRequestReservations } from "../../services";
 import { ReservationAdmin } from "../ReservationAdmin";
@@ -13,34 +14,6 @@ export function Reservation() {
   const [userType, setUserType] = useState("admin");
   const [load, setLoad] = useState(true);
   const [data, setData] = useState([]);
-  //   {
-  //     id: 1,
-  //     parking_id: 1,
-  //     date: "2022-10-10",
-  //     hour: "20:10",
-  //     car: "CAD120",
-  //     userName: "Pedro Martinez",
-  //     status: "Pending",
-  //   },
-  //   {
-  //     id: 2,
-  //     parking_id: 2,
-  //     date: "2022-10-15",
-  //     hour: "15:03",
-  //     car: "CAD110",
-  //     userName: "Laura Perez",
-  //     status: "Approved",
-  //   },
-  //   {
-  //     id: 3,
-  //     parking_id: 5,
-  //     date: "2022-12-20",
-  //     hour: "10:3",
-  //     car: "ABC456",
-  //     userName: "Sara Torres",
-  //     status: "Approved",
-  //   },
-  // ]);
 
   //Cuando carga la primera vez
   useEffect(() => {
@@ -77,7 +50,11 @@ export function Reservation() {
   }
 
   if (!load) {
-    if (userType === "admin") {
+    if (data.length == 0) {
+      return (
+        <Alert variant={"info"}>There are no reservations, add one.</Alert>
+      );
+    } else if (userType === "admin") {
       return (
         <>
           <SelectUser />
