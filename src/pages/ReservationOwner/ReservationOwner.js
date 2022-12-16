@@ -43,13 +43,13 @@ export function ReservationOwner({ data, setData }) {
           {data.map((item) => {
             return (
               <tr key={item.id}>
-                <td>{item.userName}</td>
+                {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
                 <td>{item.date}</td>
                 <td>{item.hour}</td>
-                <td>{item.car}</td>
+                <td>{item.plate}</td>
 
                 <td>
-                  <DeletePopUp title="reservation" />
+                  <DeletePopUp title="reservation" id={item.id} />
                 </td>
                 <td>
                   <StatusButton content={item.status} />
