@@ -10,7 +10,6 @@ import "./NavBar.css";
  */
 export function NavBar() {
   const { pathname } = useLocation();
-
   const isCurrentPage = (route) => {
     return route === pathname;
   };
@@ -39,7 +38,11 @@ export function NavBar() {
             <Nav.Link as={Link} to="/login" active={isCurrentPage("/login")}>
               Sign in
             </Nav.Link>
-            <Nav.Link as={Link} to="/register" active={isCurrentPage("/register")}>
+            <Nav.Link
+              as={Link}
+              to="/register"
+              active={isCurrentPage("/register")}
+            >
               Sign up
             </Nav.Link>
           </Nav>
