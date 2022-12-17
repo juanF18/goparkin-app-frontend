@@ -35,7 +35,7 @@ export function RegisterMapView() {
       />
       <ClickLatLong />
       <LocationMarker />
-      <Markers coords={centerMap} />
+      <Markers coords={centerMap} registroOwner={true} />
     </MapContainer>
   );
 }
