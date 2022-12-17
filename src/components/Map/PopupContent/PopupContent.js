@@ -21,7 +21,6 @@ function ReservaButton() {
   async function sendRequest() {
     handleClose();
     postRequestReservation(date, hour, plate);
-    alert("Enviando formulario");
   }
 
   return (

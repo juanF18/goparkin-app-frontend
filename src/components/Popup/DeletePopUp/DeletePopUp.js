@@ -16,8 +16,13 @@ export function DeletePopUp(props) {
 
   async function sendRequest() {
     handleClose();
-    deleteRequestReservation(props.id);
-    alert("Enviando formulario");
+    function check(item) {
+      return item.id != props.id;
+    }
+    let val = await deleteRequestReservation(props.id);
+    props.setData(props.data.filter(check));
+    // window.location.reload();
+    // alert("Enviando formulario");
   }
 
   return (
