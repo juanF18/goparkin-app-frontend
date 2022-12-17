@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { Form, Button, InputGroup } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { initalValuesLogin, validationSchemaLogin } from "./LoginForm.data";
 import { LoginRequest } from "../../../services";
 import "./LoginForm.css";
-import { Link } from "react-router-dom";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
-
+  const navigate = useNavigate();
   /**
    * Libreria usada para que se pueda hacer maenejo de los formularios
    *  Formik
@@ -27,7 +27,7 @@ export function LoginForm() {
     onSubmit: async (formValues) => {
       try {
         await LoginRequest(formValues.email, formValues.password);
-        alert("Se inicio sesion");
+        navigate("/");
       } catch (error) {
         alert(error + "Error al iniciar sesion");
       }

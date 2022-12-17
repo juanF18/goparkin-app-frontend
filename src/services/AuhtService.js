@@ -8,14 +8,31 @@ export async function LoginRequest(email, password) {
       "Content-Type": "application/json",
     })
     .then((res) => {
-      console.log("Info que me llega");
-      console.log(res);
-      //console.log("el rol que me llega");
-      //console.log(res.data.rol.name);
-      return;
+      localStorage.setItem("token", res.data.token.token);
+      localStorage.setItem("typeUser", res.data.user.rol.name);
+      return true;
     })
     .catch((err) => {
       console.log(err);
-      return;
+      return false;
+    });
+}
+export async function LogoutRequest() {
+  await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKENDURL}/logout`,
+    data: "",
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem("token")}`,
+    },
+  })
+    .then((res) => {
+      localStorage.removeItem("token");
+      localStorage.removeItem("typeUser");
+      return true;
+    })
+    .catch((err) => {
+      console.log(err);
+      return false;
     });
 }
