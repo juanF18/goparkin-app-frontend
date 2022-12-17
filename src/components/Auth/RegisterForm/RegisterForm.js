@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Col, Form, Row, Button } from "react-bootstrap";
+import { getCurrentLocation } from "../../../helpers";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { storeRegister } from "../../../services";
 
 export function RegisterForm() {
-
   const [ownerOrUser, setOwnerOrUser] = useState(false);
   const [idPeople, setIdPeople] = useState(null);
 
@@ -16,8 +16,7 @@ export function RegisterForm() {
    * Toma los valores de los formularios y los convierte en un objeto.
    * @param {*} event captura de formularios
    */
-  const formSubmit = (event) => {
-
+  const formSubmit = async (event) => {
     // Escoge el rol y la información correspondiente
     // en base al formulario que llena el usuario
     let id_rol = "";
@@ -25,8 +24,7 @@ export function RegisterForm() {
     if (ownerOrUser) {
       // Owner
       id_rol = "2";
-    }
-    else {
+    } else {
       // User
       id_rol = "1";
     }
@@ -47,14 +45,14 @@ export function RegisterForm() {
       email: event.target.email.value,
       password: password === confirmPassword ? password : "",
       plate: event.target.plate.value,
+      type: event.target.typeVehicle.value,
     });
 
     // Promise
-    
-    setIdPeople(storeRegister(id_rol, name, last_name, phone, email, password));
 
+    //setIdPeople(storeRegister(id_rol, name, last_name, phone, email, password));
 
-    alert('Enviando Formulario de Registro '+ idPeople);
+    alert("Enviando Formulario de Registro " + idPeople);
 
     // Redireccionar al login
   };
