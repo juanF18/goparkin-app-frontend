@@ -1,7 +1,15 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UnLoggedLayout } from "../layout";
-import { Home, Login, Register, Reservation, ResetPassword, AdminRols } from "../pages";
+import {
+  Home,
+  Login,
+  Register,
+  Reservation,
+  ResetPassword,
+  AdminRols,
+  Documents,
+} from "../pages";
 
 /**
  * Funcion que nos genera las rutas y enviva por props el componente
@@ -19,6 +27,7 @@ export function LoggedNavigation() {
           <Route path="/adminRols" element={<AdminRols />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/documents" element={<Documents />} />
         </Routes>
       </UnLoggedLayout>
     </BrowserRouter>
