@@ -36,3 +36,9 @@ export async function LogoutRequest() {
       return false;
     });
 }
+
+export async function ForgotPasswordRequest(email) {
+  return await axios.post(`${process.env.REACT_APP_BACKENDURL}/forgot`, {
+    email,
+  });
+}
