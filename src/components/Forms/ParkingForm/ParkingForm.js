@@ -1,6 +1,6 @@
 import React from "react";
 import { Col, Form, Row } from "react-bootstrap";
-import { MapView } from "../../Map";
+import { RegisterMapView } from "../../Map/RegisterMapView";
 import "./ParkingForm.css";
 
 export function ParkingForm() {
@@ -31,7 +31,7 @@ export function ParkingForm() {
         <Form.Group>
           <Form.Label>Choose your location</Form.Label>
           <div className="map_register">
-            <MapView />
+            <RegisterMapView />
           </div>
         </Form.Group>
       </Row>
