@@ -37,6 +37,38 @@ export function ListDocuments() {
               </span>
             </td>
           </tr>
+          <tr>
+            <td>Sebas</td>
+            <td>Parking anithing</td>
+            <td>
+              <h5>
+                <Badge bg="danger" text="dark">
+                  Rejected
+                </Badge>
+              </h5>
+            </td>
+            <td>
+              <span className="show_doc" onClick={onClickShow}>
+                <FaEye style={{ fontSize: "25px" }} />
+              </span>
+            </td>
+          </tr>
+          <tr>
+            <td>Topo</td>
+            <td>The parking</td>
+            <td>
+              <h5>
+                <Badge bg="success" text="dark">
+                  Aproved
+                </Badge>
+              </h5>
+            </td>
+            <td>
+              <span className="show_doc" onClick={onClickShow}>
+                <FaEye style={{ fontSize: "25px" }} />
+              </span>
+            </td>
+          </tr>
         </tbody>
       </Table>
     </div>
