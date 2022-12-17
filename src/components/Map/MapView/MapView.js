@@ -1,5 +1,5 @@
-import React from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
 import { Markers } from "../Markers";
 
@@ -14,14 +14,26 @@ import "./MapView.css";
  * @returns Retorna la vista del mapa
  */
 export function MapView() {
-  const centerMap = [5.06814396941135, -75.5173278840628];
-
+  const [centerMap, setCenterMap] = useState([
+    5.06814396941135, -75.5173278840628,
+  ]);
+  function ClickLatLong() {
+    const map = useMapEvents({
+      click: (e) => {
+        console.log("lat", e.latlng.lat);
+        console.log("long", e.latlng.lng);
+        setCenterMap([e.latlng.lat, e.latlng.lng]);
+      },
+    });
+    return null;
+  }
   return (
     <MapContainer zoom={16} center={centerMap}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
+      <ClickLatLong />
       <LocationMarker />
       <Markers coords={centerMap} />
     </MapContainer>
