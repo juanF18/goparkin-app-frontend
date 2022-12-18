@@ -35,14 +35,18 @@ export function RegisterMapView({ setCity, setDepartment, setAddress }) {
       .get(url)
       .then(function (response) {
         // handle success
-        // console.log(response.data.address);
-        setCity(response.data.address.city);
+        console.log(response.data.address);
+        response.data.address.city ? setCity(response.data.address.city) : null;
+        response.data.address.county
+          ? setCity(response.data.address.county)
+          : null;
         setDepartment(response.data.address.state);
         setAddress(response.data.address.neighbourhood);
       })
       .catch(function (error) {
         // handle error
-        // console.log(error);
+        console.log(error);
+        return;
       });
   }
   return (
