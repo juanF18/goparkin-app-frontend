@@ -35,7 +35,11 @@ export function ReservationAdmin({ data, setData }) {
                 ) : (
                   <td>{item.id_parking}</td>
                 )}
-                {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
+                {item.id_people == null ? (
+                  <td>null</td>
+                ) : (
+                  <td>{item.id_people}</td>
+                )}
                 <td>{item.date}</td>
                 <td>{item.hour}</td>
                 <td>{item.plate}</td>
@@ -43,10 +47,26 @@ export function ReservationAdmin({ data, setData }) {
                 <td>{item.created_at}</td>
                 <td>{item.updated_at}</td>
                 <td>
-                  <DeletePopUp title="reservation" id={item.id} />
+                  <DeletePopUp
+                    title="reservation"
+                    id={item.id}
+                    data={data}
+                    setData={setData}
+                  />
                 </td>
                 <td>
-                  <UpdateReservationPopUp userType="admin" />
+                  <UpdateReservationPopUp
+                    userType="admin"
+                    date={item.date}
+                    hour={item.hour}
+                    plate={item.plate}
+                    id={item.id}
+                    status={item.status}
+                    id_people={item.id_people}
+                    id_parking={item.id_parking}
+                    data={data}
+                    setData={setData}
+                  />
                 </td>
               </tr>
             );

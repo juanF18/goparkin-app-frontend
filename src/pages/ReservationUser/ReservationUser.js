@@ -1,7 +1,7 @@
 import { DeletePopUp } from "../../components/Popup/DeletePopUp";
 import { UpdateReservationPopUp } from "../../components/Popup/UpdateReservationPopUp";
 
-export function ReservationUser({ data }) {
+export function ReservationUser({ data, setData }) {
   return (
     <>
       <h3>User</h3>
@@ -34,7 +34,12 @@ export function ReservationUser({ data }) {
                 <td>{item.plate}</td>
                 <td>{item.status}</td>
                 <td>
-                  <DeletePopUp title="reservation" id={item.id} />
+                  <DeletePopUp
+                    title="reservation"
+                    id={item.id}
+                    data={data}
+                    setData={setData}
+                  />
                 </td>
                 <td>
                   <UpdateReservationPopUp
@@ -44,6 +49,10 @@ export function ReservationUser({ data }) {
                     plate={item.plate}
                     id={item.id}
                     status={item.status}
+                    id_people={item.id_people}
+                    id_parking={item.id_parking}
+                    data={data}
+                    setData={setData}
                   />
                 </td>
               </tr>

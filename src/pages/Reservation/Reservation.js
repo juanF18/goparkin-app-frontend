@@ -35,7 +35,7 @@ export function Reservation() {
     return (
       <>
         <select
-          style={{ position: "absolute" }} //esta parte se va a quitar, es para pruebas y en general este select
+          //esta parte se va a quitar, es para pruebas y en general este select
           onChange={(e) => {
             setUserType(e.target.value.toLowerCase());
           }}
@@ -57,8 +57,9 @@ export function Reservation() {
     } else if (userType === "admin") {
       return (
         <>
-          <SelectUser />
           <br></br>
+          <SelectUser />
+
           <ReservationAdmin data={data} setData={setData} />
         </>
       );
@@ -67,7 +68,7 @@ export function Reservation() {
         <>
           <SelectUser />
           <br></br>
-          <ReservationUser data={data} />
+          <ReservationUser data={data} setData={setData} />
         </>
       );
     } else if (userType === "owner") {
