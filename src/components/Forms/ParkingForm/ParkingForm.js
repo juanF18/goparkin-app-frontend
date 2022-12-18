@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { RegisterMapView } from "../../Map/RegisterMapView";
 import "./ParkingForm.css";
 
 export function ParkingForm() {
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [department, setDepartment] = useState("");
+
   return (
     <>
       {/* Sector de nombre de parqueader */}
@@ -17,21 +21,43 @@ export function ParkingForm() {
       {/* Sector de direccion */}
       <Row className="mb-3">
         <Form.Group as={Col}>
-          <Form.Label>Adress</Form.Label>
-          <Form.Control name="adress" type="text" />
+          <Form.Label>Address</Form.Label>
+          <Form.Control
+            name="adress"
+            type="text"
+            value={address}
+            onChange={(e) => e.target.value}
+            disabled
+          />
         </Form.Group>
         <Form.Group as={Col}>
           <Form.Label>Department</Form.Label>
-          <Form.Control name="department" type="text" />
+          <Form.Control
+            name="department"
+            type="text"
+            value={department}
+            onChange={(e) => e.target.value}
+            disabled
+          />
         </Form.Group>
         <Form.Group as={Col}>
           <Form.Label>City</Form.Label>
-          <Form.Control name="city" type="text" />
+          <Form.Control
+            name="city"
+            type="text"
+            value={city}
+            onChange={(e) => e.target.value}
+            disabled
+          />
         </Form.Group>
         <Form.Group>
           <Form.Label>Choose your location</Form.Label>
           <div className="map_register">
-            <RegisterMapView />
+            <RegisterMapView
+              setAddress={setAddress}
+              setDepartment={setDepartment}
+              setCity={setCity}
+            />
           </div>
         </Form.Group>
       </Row>

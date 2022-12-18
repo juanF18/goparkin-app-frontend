@@ -5,6 +5,7 @@ import { Markers } from "../Markers";
 
 import "leaflet/dist/leaflet.css";
 import "./RegisterMapView.css";
+import axios from "axios";
 
 /**
  * Funcion que nos retorna el mapa y donde configuramos
@@ -13,7 +14,7 @@ import "./RegisterMapView.css";
  * darle un estilo al mapa hay que darle una tribucion al layout del mapa
  * @returns Retorna la vista del mapa
  */
-export function RegisterMapView() {
+export function RegisterMapView({ setCity, setDepartment, setAddress }) {
   const [centerMap, setCenterMap] = useState([
     5.06814396941135, -75.5173278840628,
   ]);
@@ -23,9 +24,26 @@ export function RegisterMapView() {
         console.log("lat", e.latlng.lat);
         console.log("long", e.latlng.lng);
         setCenterMap([e.latlng.lat, e.latlng.lng]);
+        getAddress(e.latlng.lat, e.latlng.lng);
       },
     });
     return null;
+  }
+  function getAddress(lat, long) {
+    let url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}&zoom=18&addressdetails=1`;
+    axios
+      .get(url)
+      .then(function (response) {
+        // handle success
+        // console.log(response.data.address);
+        setCity(response.data.address.city);
+        setDepartment(response.data.address.state);
+        setAddress(response.data.address.neighbourhood);
+      })
+      .catch(function (error) {
+        // handle error
+        // console.log(error);
+      });
   }
   return (
     <MapContainer zoom={16} center={centerMap}>
