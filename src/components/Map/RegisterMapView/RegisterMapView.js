@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
 import { Markers } from "../Markers";
+import "./RegisterMapView.css";
 
 import "leaflet/dist/leaflet.css";
 import "./RegisterMapView.css";
@@ -50,7 +51,7 @@ export function RegisterMapView({ setCity, setDepartment, setAddress }) {
       });
   }
   return (
-    <MapContainer zoom={16} center={centerMap}>
+    <MapContainer style={{ height: "300px" }} zoom={16} center={centerMap}>
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
