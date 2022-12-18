@@ -115,6 +115,7 @@ export function RegisterForm() {
           </Button>
         </Row>
       </Form>
+      <br></br>
     </div>
   );
 }
