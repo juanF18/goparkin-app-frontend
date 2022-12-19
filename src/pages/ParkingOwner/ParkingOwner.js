@@ -1,10 +1,33 @@
 import { Button, Col, Container, ListGroup, Row, Table } from "react-bootstrap";
 import "./ParkingOwner.css";
 import { MdAddCircleOutline } from "react-icons/md";
-import { RegisterForm } from "../../components/Auth";
+import { ParkinOwnerForm } from "../../components/Forms";
+import { useState } from 'react';
+
 
 export const ParkingOwner = ({ data = [] }) => {
-  //si es admin se muestra esta parte
+  //si es admin se muestra esta part
+  const [add, setAdd] = useState(false);
+  const [inf, setInf] = useState(false);
+  const [info, setInfo] = useState({ name: "holii" })
+  const [edit, setEdit] = useState(false);
+  const EditParking = () => {
+    setEdit(true);
+    setAdd(false)
+    setInf(false)
+  }
+  const AddParking = () => {
+    setEdit(false);
+    setAdd(true)
+    setInf(false)
+  }
+  const InfParking = () => {
+
+    setEdit(false);
+    setAdd(false)
+    setInf(true)
+
+  }
 
   return (
     <>
@@ -19,7 +42,7 @@ export const ParkingOwner = ({ data = [] }) => {
               <h2 className="title">Parking</h2>
             </Col>
             <Col>
-              <Button variant="light">
+              <Button variant="light" onClick={AddParking}>
                 Add parking <MdAddCircleOutline />
               </Button>
             </Col>
@@ -27,23 +50,24 @@ export const ParkingOwner = ({ data = [] }) => {
           </Row>
           <Row className="parkings">
             <ListGroup variant="flush">
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item onClick={()=>{console.log("olii")}}>ooli</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
-              <ListGroup.Item>Porta ac consectetur ac</ListGroup.Item>
-              <ListGroup.Item>Cras justo odio</ListGroup.Item>
-              <ListGroup.Item>Dapibus ac facilisis in</ListGroup.Item>
-              <ListGroup.Item>Morbi leo risus</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Cras justo odio</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Dapibus ac facilisis in</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>ooli</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Porta ac consectetur ac</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Cras justo odio</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Dapibus ac facilisis in</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Morbi leo risus</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Porta ac consectetur ac</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Cras justo odio</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Dapibus ac facilisis in</ListGroup.Item>
+              <ListGroup.Item onClick={InfParking}>Morbi leo risus</ListGroup.Item>
 
             </ListGroup>
           </Row>
         </Col>
         <Col>
-          <RegisterForm />
+          {add && !edit && !inf && <ParkinOwnerForm title="Add Parking" />}
+          {inf && !add && !edit && <ParkinOwnerForm title="Info Parking"  data={info}/>}
         </Col>
       </Row>
     </>

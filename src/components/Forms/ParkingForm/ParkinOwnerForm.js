@@ -1,48 +1,62 @@
 import React from "react";
-import { Col, Form, Row } from "react-bootstrap";
+import { useState } from "react";
+import { Col, Form, Row, Stack } from "react-bootstrap";
+import Button from 'react-bootstrap/Button';
 
-export function ParkingForm({title}) {
-  
+export const ParkinOwnerForm = ({ title, data = {} }) => {
+  const [info, setInfo] = useState(title);
   return (
     <>
       {/* Sector de nombre de parqueadero */}
       <Row className="mb-3">
-        <h3>{title}</h3>
+        <h3>{info}</h3>
         <Form.Group as={Col}>
           <Form.Label>Parking name</Form.Label>
-          <Form.Control name="parkingName" type="text" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}name="parkingName" type="text" />
         </Form.Group>
       </Row>
       {/* Sector de direccion */}
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Adress</Form.Label>
-          <Form.Control name="adress" type="text" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+            name="adress" type="text" />
         </Form.Group>
         <Form.Group as={Col}>
           <Form.Label>Department</Form.Label>
-          <Form.Control name="department" type="text" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+            name="department" type="text" />
         </Form.Group>
         <Form.Group as={Col}>
           <Form.Label>City</Form.Label>
-          <Form.Control name="city" type="text" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+            name="city" type="text" />
         </Form.Group>
       </Row>
 
       <Row className="mb-3">
         <Form.Group as={Col}>
           <Form.Label>Car places</Form.Label>
-          <Form.Control name="carPlaces" type="number" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+            name="carPlaces" type="number" />
         </Form.Group>
 
         <Form.Group as={Col}>
           <Form.Label>Motorcycle places</Form.Label>
-          <Form.Control name="carPlaces" type="number" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+            name="carPlaces" type="number" />
         </Form.Group>
 
         <Form.Group as={Col}>
           <Form.Label>Opening Hour</Form.Label>
-          <Form.Control name="carPlaces" type="number" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}name="carPlaces" type="number" />
         </Form.Group>
 
         <Form.Group as={Col}>
@@ -55,7 +69,9 @@ export function ParkingForm({title}) {
 
         <Form.Group as={Col}>
           <Form.Label>Closing Hour</Form.Label>
-          <Form.Control name="carPlaces" type="number" />
+          <Form.Control defaultValue={!!data.name ? data.name : ""}
+          disabled={info=="Info Parking"}
+          name="carPlaces" type="number" />
         </Form.Group>
 
         <Form.Group as={Col}>
@@ -121,8 +137,39 @@ export function ParkingForm({title}) {
             />
           </div>
         </Form.Group>
+    
+      </Row>
+      <Row>
+      <Col>
+        {info=="Add Parking" && (<Stack direction="horizontal" gap={2}>
+        <Button as="a" variant="primary">
+          Save
+        </Button>
+          <Button as="a" variant="success">
+          Cancel
+          </Button>
+        </Stack>)}
+        {info=="Info Parking" && (<Stack direction="horizontal" gap={2}>
+        <Button as="a" variant="primary" onClick={()=>{setInfo("Edit Parking")}}>
+          Edit 
+        </Button>
+          <Button as="a" variant="success">
+          Delete
+          </Button>
+        </Stack>)}
+        {info=="Edit Parking" && (<Stack direction="horizontal" gap={2}>
+        <Button as="a" variant="primary">
+          Update
+        </Button>
+          <Button as="a" variant="success"onClick={()=>{setInfo("Info Parking")}}>
+          Cancel
+          </Button>
+        </Stack>)}
+        </Col>
 
       </Row>
+
+      
     </>
   );
 }
