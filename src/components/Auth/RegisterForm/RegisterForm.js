@@ -5,9 +5,11 @@ import { getCurrentLocation } from "../../../helpers";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { storeRegister } from "../../../services";
 import { useFormik } from "formik";
-import { initialValuesRegister, validationSchemaRegister } from "./RegisterForm.data";
+import {
+  initialValuesRegister,
+  validationSchemaRegister,
+} from "./RegisterForm.data";
 import { Link, useNavigate } from "react-router-dom";
-
 
 export function RegisterForm() {
   const [ownerOrUser, setOwnerOrUser] = useState(false);
@@ -15,16 +17,15 @@ export function RegisterForm() {
   const navigate = useNavigate();
 
   /**
-  * Gestiona los valores de los formularios
-  * Realizar validaciones por medio de Formik y Yup
-  * Envía la data al backend con los Axios
-  */
+   * Gestiona los valores de los formularios
+   * Realizar validaciones por medio de Formik y Yup
+   * Envía la data al backend con los Axios
+   */
   const formik = useFormik({
     initialValues: initialValuesRegister(),
     validationSchema: validationSchemaRegister(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
-
       console.log("hola");
 
       // Escoge el rol y la información correspondiente
@@ -40,21 +41,26 @@ export function RegisterForm() {
       }
 
       try {
-        await storeRegister(id_rol, formValues.name, formValues.last_name, formValues.phone, formValues.email, formValues.password)
-        .then((res)=>{
-          console.log(res.data);
-          alert(`Enviando Formulario de Registro ${res.data.id}`);
-          navigate("/login");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-      }
-      catch (error) {
+        await storeRegister(
+          id_rol,
+          formValues.name,
+          formValues.last_name,
+          formValues.phone,
+          formValues.email,
+          formValues.password
+        )
+          .then((res) => {
+            console.log(res.data);
+            alert(`Enviando Formulario de Registro ${res.data.id}`);
+            navigate("/login");
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } catch (error) {
         alert(`${error} - Error al registrar usuario`);
       }
     },
-
   });
 
   const onChangeType = () => {
@@ -78,7 +84,6 @@ export function RegisterForm() {
 
       <Form onSubmit={formik.handleSubmit}>
         <Row>
-
           {/* Name */}
           <Form.Group className="col-md-3" controlId="formBasicName">
             <Form.Label>Name *</Form.Label>
@@ -138,14 +143,12 @@ export function RegisterForm() {
               {formik.errors.email}
             </Form.Control.Feedback>
           </Form.Group>
-
         </Row>
 
         {/* Form Parking or Vehicle */}
         {ownerOrUser ? <ParkingForm /> : <VehicleForm />}
 
         <Row>
-
           {/* Password */}
           <Form.Group className="col-md-4" controlId="formBasicPassword">
             <Form.Label>Password *</Form.Label>
@@ -182,10 +185,10 @@ export function RegisterForm() {
               Register
             </Button>
           </div>
-
         </Row>
       </Form>
 
+      <br />
     </div>
   );
 }

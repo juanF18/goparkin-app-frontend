@@ -21,9 +21,11 @@ export function Markers(props) {
         autoPan={true}
       >
         <Tooltip>Nombre parquedero</Tooltip>
-        <Popup>
-          <PopupContent />
-        </Popup>
+        {props.registroOwner == true ? null : (
+          <Popup>
+            <PopupContent />
+          </Popup>
+        )}
       </Marker>
     </>
   );

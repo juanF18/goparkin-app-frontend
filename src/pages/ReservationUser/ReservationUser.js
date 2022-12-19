@@ -1,7 +1,7 @@
 import { DeletePopUp } from "../../components/Popup/DeletePopUp";
 import { UpdateReservationPopUp } from "../../components/Popup/UpdateReservationPopUp";
 
-export function ReservationUser({ data }) {
+export function ReservationUser({ data, setData }) {
   return (
     <>
       <h3>User</h3>
@@ -23,18 +23,37 @@ export function ReservationUser({ data }) {
           {data.map((item) => {
             return (
               <tr key={item.id}>
-                <td>{item.parking_id}</td>
-                <td>{item.userName}</td>
+                {item.id_parking == null ? (
+                  <td>null</td>
+                ) : (
+                  <td>{item.id_parking}</td>
+                )}
+                {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
                 <td>{item.date}</td>
                 <td>{item.hour}</td>
-                <td>{item.car}</td>
+                <td>{item.plate}</td>
                 <td>{item.status}</td>
-
                 <td>
-                  <DeletePopUp title="reservation" />
+                  <DeletePopUp
+                    title="reservation"
+                    id={item.id}
+                    data={data}
+                    setData={setData}
+                  />
                 </td>
                 <td>
-                  <UpdateReservationPopUp userType="user" />
+                  <UpdateReservationPopUp
+                    userType="user"
+                    date={item.date}
+                    hour={item.hour}
+                    plate={item.plate}
+                    id={item.id}
+                    status={item.status}
+                    id_people={item.id_people}
+                    id_parking={item.id_parking}
+                    data={data}
+                    setData={setData}
+                  />
                 </td>
               </tr>
             );

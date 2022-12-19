@@ -1,5 +1,5 @@
-import React from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import React, { useState } from "react";
+import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
 import { Markers } from "../Markers";
 
@@ -15,7 +15,6 @@ import "./MapView.css";
  */
 export function MapView() {
   const centerMap = [5.06814396941135, -75.5173278840628];
-
   return (
     <MapContainer zoom={16} center={centerMap}>
       <TileLayer
