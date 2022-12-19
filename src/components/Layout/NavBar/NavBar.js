@@ -48,8 +48,8 @@ export function NavBar() {
             <Nav.Link as={Link} to="/" active={isCurrentPage("/")}>
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/adminRols">
-              AdminRols
+            <Nav.Link as={Link} to="/roles">
+              Roles
             </Nav.Link>
             <Nav.Link as={Link} to="/reservations">
               Reservations

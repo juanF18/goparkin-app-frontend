@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { useFormik } from "formik";
-import { initialValuesVehicle, validationSchemaVehicle } from "./VehicleForm.data";
+import {
+  initialValuesVehicle,
+  validationSchemaVehicle,
+} from "./VehicleForm.data";
 
 export function VehicleForm() {
   const [value, setValue] = useState("");
@@ -16,7 +19,8 @@ export function VehicleForm() {
         <Form.Select
           value={value}
           name="typeVehicle"
-          onChange={(ev) => setValue(ev.target.value)}>
+          onChange={(ev) => setValue(ev.target.value)}
+        >
           <option value="motorcycle">Motorcycle</option>
           <option value="car">Car</option>
         </Form.Select>
@@ -36,7 +40,6 @@ export function VehicleForm() {
           {formik.errors.plate}
         </Form.Control.Feedback>
       </Form.Group>
-
     </Row>
   );
 }
