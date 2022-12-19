@@ -24,8 +24,8 @@ export function RegisterForm() {
    */
 
   const formik = useFormik({
-    initialValues: initialValuesRegister(),
-    validationSchema: validationRegister(),
+    initialValues: initialValuesRegister(ownerOrUser),
+    validationSchema: validationRegister(ownerOrUser),
     validateOnChange: false,
     onSubmit: (values) => {
       let id_rol = "";
@@ -132,7 +132,10 @@ export function RegisterForm() {
           </Form.Group>
         </Row>
         {ownerOrUser ? (
-          <ParkingForm />
+          <ParkingForm
+            errors={formik.errors}
+            handleChange={formik.handleChange}
+          />
         ) : (
           <VehicleForm
             errors={formik.errors.vehicle}
