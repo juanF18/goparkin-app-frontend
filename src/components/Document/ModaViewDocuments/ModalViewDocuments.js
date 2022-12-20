@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { Document, Page } from "react-pdf";
+import { pdfTest } from "../../../assets/pdf";
 
 export function ModalViewDocuments(props) {
   const { show, close } = props;
@@ -10,7 +11,11 @@ export function ModalViewDocuments(props) {
         <Modal.Title>Approve parking document</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <Document file={`${__dirname}/public/1.pdf`} renderMode="canvas">
+        <Document
+          file={pdfTest}
+          options={{ Worker: "/pdf.worker.js" }}
+          renderMode="canvas"
+        >
           <Page pageNumber={1} />
         </Document>
       </Modal.Body>

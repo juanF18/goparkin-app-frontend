@@ -8,7 +8,7 @@ export function ListDocuments() {
   const [showModal, setShowModal] = useState(true);
 
   const onClickShow = () => {
-    setShowModal(true);
+    setShowModal(false);
   };
 
   return (

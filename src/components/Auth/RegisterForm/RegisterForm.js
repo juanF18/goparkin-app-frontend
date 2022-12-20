@@ -1,71 +1,105 @@
 import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Col, Form, Row, Button } from "react-bootstrap";
-import { getCurrentLocation } from "../../../helpers";
 import { ParkingForm, VehicleForm } from "../../Forms";
-import { storeRegister } from "../../../services";
 import { useFormik } from "formik";
-import {
-  initialValuesRegister,
-  validationSchemaRegister,
-} from "./RegisterForm.data";
-import { Link, useNavigate } from "react-router-dom";
+import { initialValuesRegister, validationRegister } from "./RegisterForm.data";
+import { storeRegister } from "../../../services";
+import { storeVehicle } from "../../../services";
+//import { storeRegister } from "../../../services";
 
 export function RegisterForm() {
   const [ownerOrUser, setOwnerOrUser] = useState(false);
-  const [idPeople, setIdPeople] = useState(null); // Almacena el id recuperado del Response que genera el Request, para usarlo como FK en Vehicle o Parking
-  const navigate = useNavigate();
+  const [openDays, setOpenDays] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [department, setDepartment] = useState("");
+  const [coordinates, setCoordinates] = useState([]);
+  const [idPeople, setIdPeople] = useState(null);
 
   /**
-   * Gestiona los valores de los formularios
-   * Realizar validaciones por medio de Formik y Yup
-   * Envía la data al backend con los Axios
+   * false : usuario
+   * true : owner
    */
-  const formik = useFormik({
-    initialValues: initialValuesRegister(),
-    validationSchema: validationSchemaRegister(),
-    validateOnChange: false,
-    onSubmit: async (formValues) => {
-      console.log("hola");
-
-      // Escoge el rol y la información correspondiente
-      // en base al formulario que llena el usuario
-      let id_rol = "";
-
-      if (ownerOrUser) {
-        // Owner
-        id_rol = "2";
-      } else {
-        // User
-        id_rol = "1";
-      }
-
-      try {
-        await storeRegister(
-          id_rol,
-          formValues.name,
-          formValues.last_name,
-          formValues.phone,
-          formValues.email,
-          formValues.password
-        )
-          .then((res) => {
-            console.log(res.data);
-            alert(`Enviando Formulario de Registro ${res.data.id}`);
-            navigate("/login");
-          })
-          .catch((err) => {
-            console.log(err);
-          });
-      } catch (error) {
-        alert(`${error} - Error al registrar usuario`);
-      }
-    },
-  });
-
   const onChangeType = () => {
     setOwnerOrUser((prevState) => !prevState);
   };
+  /**
+   * Toma los valores de los formularios y los convierte en un objeto.
+   * @param {*} event captura de formularios
+   */
+  const formik = useFormik({
+    initialValues: initialValuesRegister(ownerOrUser),
+    validationSchema: validationRegister(ownerOrUser),
+    validateOnChange: false,
+    onSubmit:
+      ownerOrUser == true
+        ? (values) => {
+            let id_rol = "";
+
+            if (ownerOrUser) {
+              // Owner
+              id_rol = "2";
+            } else {
+              // User
+              id_rol = "1";
+            }
+            if (ownerOrUser == true) {
+              console.log("entre a dueño");
+              values.parking.open_days = openDays;
+              values.address = {
+                adress: address,
+                city: city,
+                department: department,
+                latitude: coordinates[0],
+                longitude: coordinates[1],
+              };
+
+              console.log(values);
+            }
+          }
+        : async (values) => {
+            let id_rol = "";
+
+            if (ownerOrUser) {
+              // Owner
+              id_rol = "2";
+            } else {
+              // User
+              id_rol = "1";
+            }
+            try {
+              await storeRegister(
+                id_rol,
+                values.name,
+                values.last_name,
+                values.phone,
+                values.email,
+                values.password
+              )
+                .then(async (res) => {
+                  setIdPeople(await res.data.id);
+                  await storeVehicle(
+                    idPeople,
+                    values.vehicle.plate,
+                    values.vehicle.type
+                  )
+                    .then((res) => {
+                      console.log("Se guardo el vehiculo");
+                      console.log(res.data);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } catch (error) {
+              console.log(error);
+            }
+          },
+  });
 
   return (
     <div className="container_register_form">
@@ -81,31 +115,25 @@ export function RegisterForm() {
           onClick={onChangeType}
         />
       </div>
-
       <Form onSubmit={formik.handleSubmit}>
-        <Row>
-          {/* Name */}
-          <Form.Group className="col-md-3" controlId="formBasicName">
-            <Form.Label>Name *</Form.Label>
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>First Name</Form.Label>
             <Form.Control
               name="name"
-              type="name"
-              placeholder="Enter name"
+              type="text"
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.name}
             />
             <Form.Control.Feedback type="invalid">
-              {formik.errors.name}
+              {formik.errors.email}
             </Form.Control.Feedback>
           </Form.Group>
-
-          {/* Last Name */}
-          <Form.Group className="col-md-3" controlId="formBasicLastName">
-            <Form.Label>Last Name *</Form.Label>
+          <Form.Group as={Col}>
+            <Form.Label>Last Name</Form.Label>
             <Form.Control
               name="last_name"
-              type="last_name"
-              placeholder="Enter last name"
+              type="text"
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.last_name}
             />
@@ -113,14 +141,11 @@ export function RegisterForm() {
               {formik.errors.last_name}
             </Form.Control.Feedback>
           </Form.Group>
-
-          {/* Phone */}
-          <Form.Group className="col-md-3" controlId="formBasicPhone">
-            <Form.Label>Phone *</Form.Label>
+          <Form.Group as={Col}>
+            <Form.Label>Phone</Form.Label>
             <Form.Control
               name="phone"
-              type="phone"
-              placeholder="Enter phone"
+              type="text"
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.phone}
             />
@@ -128,10 +153,10 @@ export function RegisterForm() {
               {formik.errors.phone}
             </Form.Control.Feedback>
           </Form.Group>
-
-          {/* Email */}
-          <Form.Group className="col-md-3" controlId="formBasicEmail">
-            <Form.Label>Email *</Form.Label>
+        </Row>
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>Email</Form.Label>
             <Form.Control
               name="email"
               type="email"
@@ -144,14 +169,9 @@ export function RegisterForm() {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
-
-        {/* Form Parking or Vehicle */}
-        {ownerOrUser ? <ParkingForm /> : <VehicleForm />}
-
-        <Row>
-          {/* Password */}
-          <Form.Group className="col-md-4" controlId="formBasicPassword">
-            <Form.Label>Password *</Form.Label>
+        <Row className="mb-3">
+          <Form.Group as={Col}>
+            <Form.Label>Password</Form.Label>
             <Form.Control
               name="password"
               type="password"
@@ -178,13 +198,27 @@ export function RegisterForm() {
               {formik.errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-
-          {/* Password */}
-          <div className="col-md-4">
-            <Button variant="success" type="submit">
-              Register
-            </Button>
-          </div>
+        </Row>
+        {ownerOrUser ? (
+          <ParkingForm
+            errors={formik.errors}
+            handleChange={formik.handleChange}
+            openDaysState={{ openDays, setOpenDays }}
+            addressState={{ address, setAddress }}
+            departmentState={{ department, setDepartment }}
+            cityState={{ city, setCity }}
+            coordinatesState={{ coordinates, setCoordinates }}
+          />
+        ) : (
+          <VehicleForm
+            errors={formik.errors.vehicle}
+            handleChange={formik.handleChange}
+          />
+        )}
+        <Row className="submitBtn mb-3">
+          <Button variant="success" type="submit">
+            Register
+          </Button>
         </Row>
       </Form>
 
