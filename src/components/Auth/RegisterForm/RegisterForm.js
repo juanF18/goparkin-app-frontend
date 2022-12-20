@@ -4,6 +4,8 @@ import { Col, Form, Row, Button } from "react-bootstrap";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { useFormik } from "formik";
 import { initialValuesRegister, validationRegister } from "./RegisterForm.data";
+import { storeRegister } from "../../../services";
+import { storeVehicle } from "../../../services";
 //import { storeRegister } from "../../../services";
 
 export function RegisterForm() {
@@ -42,7 +44,6 @@ export function RegisterForm() {
               // User
               id_rol = "1";
             }
-            console.log("id rol" + id_rol);
             if (ownerOrUser == true) {
               console.log("entre a dueño");
               values.parking.open_days = openDays;
@@ -57,10 +58,46 @@ export function RegisterForm() {
               console.log(values);
             }
           }
-        : (values) => {
-            console.log("Entre usuario");
-            console.log(values.email);
-            console.log(values.vehicle);
+        : async (values) => {
+            let id_rol = "";
+
+            if (ownerOrUser) {
+              // Owner
+              id_rol = "2";
+            } else {
+              // User
+              id_rol = "1";
+            }
+            try {
+              await storeRegister(
+                id_rol,
+                values.name,
+                values.last_name,
+                values.phone,
+                values.email,
+                values.password
+              )
+                .then(async (res) => {
+                  setIdPeople(await res.data.id);
+                  await storeVehicle(
+                    idPeople,
+                    values.vehicle.plate,
+                    values.vehicle.type
+                  )
+                    .then((res) => {
+                      console.log("Se guardo el vehiculo");
+                      console.log(res.data);
+                    })
+                    .catch((err) => {
+                      console.log(err);
+                    });
+                })
+                .catch((err) => {
+                  console.log(err);
+                });
+            } catch (error) {
+              console.log(error);
+            }
           },
   });
 
