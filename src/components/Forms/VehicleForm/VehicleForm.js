@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 import { useFormik } from "formik";
-import {
-  initialValuesVehicle,
-  validationSchemaVehicle,
-} from "./VehicleForm.data";
 
 export function VehicleForm(props) {
   const { errors, handleChange } = props;

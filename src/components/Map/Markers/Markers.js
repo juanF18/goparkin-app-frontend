@@ -12,7 +12,8 @@ import { PopupContent } from "../PopupContent";
  */
 
 export function Markers(props) {
-  const { coords } = props;
+  const { coords, parkingInfo } = props;
+  console.log(coords);
   return coords === null ? null : (
     <>
       <Marker
@@ -23,7 +24,7 @@ export function Markers(props) {
         <Tooltip>Nombre parquedero</Tooltip>
         {props.registroOwner == true ? null : (
           <Popup>
-            <PopupContent />
+            <PopupContent parkingInfo={parkingInfo} />
           </Popup>
         )}
       </Marker>
