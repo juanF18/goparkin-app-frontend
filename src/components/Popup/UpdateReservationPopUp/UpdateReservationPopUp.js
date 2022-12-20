@@ -13,7 +13,7 @@ export function UpdateReservationPopUp({
   data,
   setData,
 }) {
-  //lo utiliza el actor tipo "User"
+  //lo utiliza el actor tipo "user" y "admin"
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -36,8 +36,28 @@ export function UpdateReservationPopUp({
 
   const [statusUser, setStatusUser] = useState(status);
 
+  // function returnDateInputFormat(date) {
+  //   let month = date[0] + date[1];
+  //   let day = date[3] + date[4];
+  //   let year = date[6] + date[7] + date[8] + date[9];
+  //   return `${year}/${month}/${day}`;
+  // }
+
   async function sendRequest() {
     handleClose();
+    let temp = [...data];
+    function findByIdAndModify(id) {
+      for (let i in temp) {
+        if (temp[i].id == id) {
+          temp[i].plate = plateUser;
+          temp[i].hour = hourUser;
+          temp[i].date = dateUser;
+          temp[i].status = statusUser;
+          setData(temp);
+          break;
+        }
+      }
+    }
     //en otra iteración pasar esta función a ReservationService
     axios
       .put(`${process.env.REACT_APP_BACKENDURL}/reservation/${id}`, {
@@ -47,12 +67,14 @@ export function UpdateReservationPopUp({
         status: statusUser,
       })
       .then(function (response) {
-        function check(item) {
-          return item.id != id;
-        }
-        const res = data.filter(check);
-        response.data.date += "T05:00:00.000Z";
-        setData([...res, response.data]);
+        findByIdAndModify(id);
+        // let temp = [...data];
+        // function check(item) {
+        //   return item.id != id;
+        // }
+        // const res = data.filter(check);
+        // response.data.date += "T05:00:00.000Z";
+        // setData([...res, response.data]);
         // console.log(res);
         // console.log(response);
         // window.location.reload();
@@ -147,9 +169,15 @@ export function UpdateReservationPopUp({
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="warning" onClick={sendRequest}>
-            Update reservation
-          </Button>
+          {dateUser ? (
+            <Button variant="warning" onClick={sendRequest}>
+              Update reservation
+            </Button>
+          ) : (
+            <Button disabled variant="warning">
+              Update reservation
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>
