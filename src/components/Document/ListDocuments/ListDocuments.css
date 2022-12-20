@@ -1,0 +1,10 @@
+.list-document {
+  padding: 30px;
+}
+
+.show_doc {
+  cursor: pointer;
+}
+.show_doc:hover {
+  color: grey;
+}

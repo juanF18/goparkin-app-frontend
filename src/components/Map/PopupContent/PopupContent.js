@@ -21,7 +21,6 @@ function ReservaButton() {
   async function sendRequest() {
     handleClose();
     postRequestReservation(date, hour, plate);
-    alert("Enviando formulario");
   }
 
   return (
@@ -49,7 +48,7 @@ function ReservaButton() {
             <option>Choose your vehicle</option>
             <option value="CAD123">CAD 123</option>
             <option value="VEH512">VEH 512</option>
-            <option value="VEJ512">ABC 567</option>
+            <option value="ABC567">ABC 567</option>
           </Form.Select>
           <br></br>
           <p>Date</p>

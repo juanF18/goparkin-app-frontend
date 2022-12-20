@@ -1,8 +1,16 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { UnLoggedLayout } from "../layout";
-import { Home, Login, Register, Reservation, ResetPassword, AdminRols } from "../pages";
-import { ParkingOwner } from "../pages/ParkingOwner";
+import {
+  Home,
+  Login,
+  Register,
+  Reservation,
+  ResetPassword,
+  AdminRols,
+  Documents,
+  ParkingOwner,
+} from "../pages";
 
 /**
  * Funcion que nos genera las rutas y enviva por props el componente
@@ -17,10 +25,11 @@ export function LoggedNavigation() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/adminRols" element={<AdminRols />} />
+          <Route path="/roles" element={<AdminRols />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/register" element={<Register />} />
           <Route path="/parkingOwner" element={<ParkingOwner />} />
+          <Route path="/documents" element={<Documents />} />
         </Routes>
       </UnLoggedLayout>
     </BrowserRouter>
