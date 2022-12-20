@@ -5,3 +5,4 @@ export * from "./Reservation";
 export * from "./ResetPassword";
 export * from "./AdminRols";
 export * from "./Documents";
+export * from "./ParkingOwner";

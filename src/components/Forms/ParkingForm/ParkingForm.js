@@ -25,9 +25,8 @@ export function ParkingForm(props) {
 
   return (
     <>
-      {/* Sector de nombre de parqueader */}
+      {/* Sector de nombre de parqueadero */}
       <Row className="mb-3">
-        <h3>Add a parking</h3>
         <Form.Group as={Col}>
           <Form.Label>Parking name</Form.Label>
           <Form.Control

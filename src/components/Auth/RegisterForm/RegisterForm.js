@@ -215,7 +215,7 @@ export function RegisterForm() {
             handleChange={formik.handleChange}
           />
         )}
-        <Row className="submitBtn mb-3">
+        <Row className="submitBtn mb-3 mg-2">
           <Button variant="success" type="submit">
             Register
           </Button>

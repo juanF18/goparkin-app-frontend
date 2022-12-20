@@ -9,6 +9,7 @@ import {
   ResetPassword,
   AdminRols,
   Documents,
+  ParkingOwner,
 } from "../pages";
 
 /**
@@ -27,6 +28,7 @@ export function LoggedNavigation() {
           <Route path="/roles" element={<AdminRols />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/parkingOwner" element={<ParkingOwner />} />
           <Route path="/documents" element={<Documents />} />
         </Routes>
       </UnLoggedLayout>

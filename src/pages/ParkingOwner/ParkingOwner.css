@@ -1,0 +1,12 @@
+.title {
+  display: flex;
+  padding-top: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+.parkings {
+  height: 85%;
+ 
+  overflow-y: scroll;
+}
