@@ -105,11 +105,13 @@ export function RegisterForm() {
     <div className="container_register_form">
       <div className="header-register">
         <h1>Register</h1>
+
+        {/* Check Owner or User */}
         <Form.Check
           className="switch-owner"
           type="switch"
           id="custom-switch"
-          label="Are you the owner?"
+          label="Are you the parking owner?"
           onClick={onChangeType}
         />
       </div>
@@ -181,13 +183,20 @@ export function RegisterForm() {
               {formik.errors.password}
             </Form.Control.Feedback>
           </Form.Group>
-          <Form.Group as={Col}>
-            <Form.Label>Confirm Password</Form.Label>
+
+          {/* Confirm Password */}
+          <Form.Group className="col-md-4" controlId="formBasicConfirmPassword">
+            <Form.Label>Confirm Password *</Form.Label>
             <Form.Control
-              name="confirmPassword"
+              name="confirm_password"
               type="password"
               placeholder="Confirm password"
+              onChange={formik.handleChange}
+              isInvalid={!!formik.errors.password}
             />
+            <Form.Control.Feedback type="invalid">
+              {formik.errors.password}
+            </Form.Control.Feedback>
           </Form.Group>
         </Row>
         {ownerOrUser ? (
@@ -212,7 +221,8 @@ export function RegisterForm() {
           </Button>
         </Row>
       </Form>
-      <br></br>
+
+      <br />
     </div>
   );
 }

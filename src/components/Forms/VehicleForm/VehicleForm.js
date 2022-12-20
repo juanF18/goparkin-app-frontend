@@ -1,10 +1,15 @@
 import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
+import { useFormik } from "formik";
+import {
+  initialValuesVehicle,
+  validationSchemaVehicle,
+} from "./VehicleForm.data";
 
 export function VehicleForm(props) {
   const { errors, handleChange } = props;
   return (
-    <Row className="mb-3">
+    <Row>
       <h3>Add a vehicle</h3>
       <Form.Group as={Col}>
         <Form.Label>Type</Form.Label>
