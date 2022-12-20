@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./RegisterForm.css";
 import { Col, Form, Row, Button } from "react-bootstrap";
-import { getCurrentLocation } from "../../../helpers";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { useFormik } from "formik";
 import { initialValuesRegister, validationRegister } from "./RegisterForm.data";
@@ -9,6 +8,11 @@ import { initialValuesRegister, validationRegister } from "./RegisterForm.data";
 
 export function RegisterForm() {
   const [ownerOrUser, setOwnerOrUser] = useState(false);
+  const [openDays, setOpenDays] = useState("");
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [department, setDepartment] = useState("");
+  const [coordinates, setCoordinates] = useState([]);
   const [idPeople, setIdPeople] = useState(null);
 
   /**
@@ -22,24 +26,42 @@ export function RegisterForm() {
    * Toma los valores de los formularios y los convierte en un objeto.
    * @param {*} event captura de formularios
    */
-
   const formik = useFormik({
     initialValues: initialValuesRegister(ownerOrUser),
     validationSchema: validationRegister(ownerOrUser),
     validateOnChange: false,
-    onSubmit: (values) => {
-      let id_rol = "";
+    onSubmit:
+      ownerOrUser == true
+        ? (values) => {
+            let id_rol = "";
 
-      if (ownerOrUser) {
-        // Owner
-        id_rol = "2";
-      } else {
-        // User
-        id_rol = "1";
-      }
-      console.log(values.email);
-      console.log(values.vehicle);
-    },
+            if (ownerOrUser) {
+              // Owner
+              id_rol = "2";
+            } else {
+              // User
+              id_rol = "1";
+            }
+            console.log("id rol" + id_rol);
+            if (ownerOrUser == true) {
+              console.log("entre a dueño");
+              values.parking.open_days = openDays;
+              values.address = {
+                adress: address,
+                city: city,
+                department: department,
+                latitude: coordinates[0],
+                longitude: coordinates[1],
+              };
+
+              console.log(values);
+            }
+          }
+        : (values) => {
+            console.log("Entre usuario");
+            console.log(values.email);
+            console.log(values.vehicle);
+          },
   });
 
   return (
@@ -135,6 +157,11 @@ export function RegisterForm() {
           <ParkingForm
             errors={formik.errors}
             handleChange={formik.handleChange}
+            openDaysState={{ openDays, setOpenDays }}
+            addressState={{ address, setAddress }}
+            departmentState={{ department, setDepartment }}
+            cityState={{ city, setCity }}
+            coordinatesState={{ coordinates, setCoordinates }}
           />
         ) : (
           <VehicleForm

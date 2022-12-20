@@ -42,7 +42,6 @@ export function RegisterMapView({
       .get(url)
       .then(function (response) {
         // handle success
-        console.log(response.data.address);
         response.data.address.city ? setCity(response.data.address.city) : null;
         response.data.address.county
           ? setCity(response.data.address.county)

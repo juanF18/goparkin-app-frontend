@@ -3,11 +3,25 @@ import { Col, Form, Row } from "react-bootstrap";
 import { RegisterMapView } from "../../Map/RegisterMapView";
 import "./ParkingForm.css";
 
-export function ParkingForm({ errors, handleChange }) {
-  const [address, setAddress] = useState("");
-  const [city, setCity] = useState("");
-  const [department, setDepartment] = useState("");
-  const [coordinates, setCoordinates] = useState([]);
+export function ParkingForm(props) {
+  const {
+    errors,
+    handleChange,
+    openDaysState,
+    addressState,
+    departmentState,
+    coordinatesState,
+    cityState,
+  } = props;
+
+  console.log(openDaysState.openDays);
+  const handleDays = (event) => {
+    if (openDaysState.setOpenDays) {
+      openDaysState.setOpenDays((day) =>
+        day === "" ? day + event.target.value : day + `,${event.target.value}`
+      );
+    }
+  };
 
   return (
     <>
@@ -43,7 +57,7 @@ export function ParkingForm({ errors, handleChange }) {
         <Form.Group as={Col}>
           <Form.Label>Hour Price Motorcycle</Form.Label>
           <Form.Control
-            name="parking.hour_price_motorcyle"
+            name="parking.hour_price_motorcycle"
             type="text"
             onChange={handleChange}
             isInvalid={
@@ -94,6 +108,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Monday"
               value={"Monday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -101,6 +116,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Tuesday"
               value={"Tuesday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -108,6 +124,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Wednesday"
               value={"Wednesday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -115,6 +132,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Thrusday"
               value={"Thrusday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -122,6 +140,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Friday"
               value={"Friday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -129,6 +148,7 @@ export function ParkingForm({ errors, handleChange }) {
               label="Satuday"
               value={"Satuday"}
               type="checkbox"
+              onChange={handleDays}
             />
             <Form.Check
               inline
@@ -136,20 +156,22 @@ export function ParkingForm({ errors, handleChange }) {
               label="Sunday"
               value={"Sunday"}
               type="checkbox"
+              onChange={handleDays}
             />
           </div>
         </Form.Group>
       </Row>
       {/* Sector de direccion */}
       <Row className="mb-3">
+        {/*
         <Form.Group as={Col}>
           <Form.Label>Address</Form.Label>
           <Form.Control
             name="address.adress"
             type="text"
-            value={address}
+            defaultValue={""}
             onChange={handleChange}
-            isInvalid={errors.address ? !!errors.address.adress : ""}
+            //isInvalid={errors.address ? !!errors.address.adress : ""}
           />
           <Form.Control.Feedback type="invalid">
             {errors.address ? errors.address.adress : ""}
@@ -160,10 +182,9 @@ export function ParkingForm({ errors, handleChange }) {
           <Form.Control
             name="address.department"
             type="text"
-            value={department}
+            defaultValue={""}
             onChange={handleChange}
-            isInvalid={errors.address ? !!errors.address.department : ""}
-            disabled
+            //isInvalid={errors.address ? !!errors.address.department : ""}
           />
           <Form.Control.Feedback type="invalid">
             {errors.address ? errors.address.department : ""}
@@ -174,10 +195,9 @@ export function ParkingForm({ errors, handleChange }) {
           <Form.Control
             name="address.city"
             type="text"
-            value={city}
+            defaultValue={""}
             onChange={handleChange}
-            isInvalid={errors.address ? !!errors.address.city : ""}
-            disabled
+            //isInvalid={errors.address ? !!errors.address.city : ""}
           />
           <Form.Control.Feedback type="invalid">
             {errors.address ? errors.address.city : ""}
@@ -187,12 +207,11 @@ export function ParkingForm({ errors, handleChange }) {
           <Form.Label>Latitude</Form.Label>
           <Form.Control
             defaultValue={""}
-            value={coordinates.length != 0 ? coordinates[0] : ""}
             name="address.latitude"
             text="text"
             onChange={handleChange}
-            isInvalid={errors.address ? !!errors.address.latitude : ""}
-            disabled
+
+            //isInvalid={errors.address ? !!errors.address.latitude : ""}
           />
           <Form.Control.Feedback type="invalid">
             {errors.address ? errors.address.latitude : ""}
@@ -202,25 +221,25 @@ export function ParkingForm({ errors, handleChange }) {
           <Form.Label>Longitude</Form.Label>
           <Form.Control
             defaultValue={""}
-            value={coordinates.length != 0 ? coordinates[1] : ""}
             name="address.logitude"
             text="text"
             onChange={handleChange}
-            isInvalid={errors.address ? !!errors.address.longitude : ""}
-            disabled
+
+            //isInvalid={errors.address ? !!errors.address.longitude : ""}
           />
           <Form.Control.Feedback type="invalid">
             {errors.address ? errors.address.longitude : ""}
           </Form.Control.Feedback>
         </Form.Group>
+          */}
         <Form.Group>
           <Form.Label>Choose your location</Form.Label>
           <div className="map_register">
             <RegisterMapView
-              setAddress={setAddress}
-              setDepartment={setDepartment}
-              setCity={setCity}
-              setCoordinates={setCoordinates}
+              setAddress={addressState.setAddress}
+              setDepartment={departmentState.setDepartment}
+              setCity={cityState.setCity}
+              setCoordinates={coordinatesState.setCoordinates}
             />
           </div>
         </Form.Group>
@@ -230,32 +249,30 @@ export function ParkingForm({ errors, handleChange }) {
         <Form.Group as={Col}>
           <Form.Label>Car places</Form.Label>
           <Form.Control
-            name="parkingSpaces.spaces_car"
-            type="number"
+            name="parkingSpace.spaces_car"
+            type="text"
             onChange={handleChange}
             isInvalid={
-              errors.parkingSpaces ? !!errors.parkingSpaces.spaces_car : ""
+              errors.parkingSpace ? !!errors.parkingSpace.spaces_car : ""
             }
           />
           <Form.Control.Feedback type="invalid">
-            {errors.parkingSpaces ? errors.parkingSpaces.spaces_car : ""}
+            {errors.parkingSpace ? errors.parkingSpace.spaces_car : ""}
           </Form.Control.Feedback>
         </Form.Group>
 
         <Form.Group as={Col}>
           <Form.Label>Motorcycle places</Form.Label>
           <Form.Control
-            name="parkingSpaces.spaces_motorcycle"
-            type="number"
+            name="parkingSpace.spaces_motorcycle"
+            type="text"
             onChange={handleChange}
             isInvalid={
-              errors.parkingSpaces
-                ? !!errors.parkingSpaces.spaces_motorcycle
-                : ""
+              errors.parkingSpace ? !!errors.parkingSpace.spaces_motorcycle : ""
             }
           />
           <Form.Control.Feedback type="invalid">
-            {errors.parkingSpaces ? errors.parkingSpaces.spaces_motorcycle : ""}
+            {errors.parkingSpace ? errors.parkingSpace.spaces_motorcycle : ""}
           </Form.Control.Feedback>
         </Form.Group>
       </Row>
