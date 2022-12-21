@@ -3,6 +3,7 @@ import { NameOpenDay, Spaces, RatingStars, Comment } from "../../Popup";
 import { Button, Form, Modal } from "react-bootstrap";
 import "./PopupContent.css";
 import { postRequestReservation } from "../../../services";
+import axios from "axios";
 
 function ReservaButton() {
   const [show, setShow] = useState(false);
@@ -14,14 +15,42 @@ function ReservaButton() {
   const [hour, setHour] = useState("");
   const [plate, setPlate] = useState("");
 
-  useEffect(() => {
-    console.log(hour);
-  }, [hour]);
+  // useEffect(() => {
+  //   console.log(hour);
+  // }, [hour]);
 
   async function sendRequest() {
     handleClose();
     postRequestReservation(date, hour, plate);
   }
+
+  const [vehiclesPlates, setVehiclesPlates] = useState([]);
+  const IDUSER = 8; //este valor se asigna
+
+  function getVehicles() {
+    axios
+      .get(`${process.env.REACT_APP_BACKENDURL}/vehicle`)
+      .then(function (response) {
+        function check(item) {
+          return item.id_people == IDUSER;
+        }
+        // console.log(response);
+        let temp = [...response.data];
+        temp = temp.filter(check);
+        setVehiclesPlates(temp);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+        // always executed
+      });
+  }
+
+  useEffect(() => {
+    getVehicles();
+  }, []);
 
   return (
     <>
@@ -45,10 +74,13 @@ function ReservaButton() {
               setPlate(e.target.value);
             }}
           >
-            <option>Choose your vehicle</option>
-            <option value="CAD123">CAD 123</option>
-            <option value="VEH512">VEH 512</option>
-            <option value="ABC567">ABC 567</option>
+            {vehiclesPlates.map((item) => {
+              return (
+                <option key={item.plate} value={item.plate}>
+                  {item.plate}
+                </option>
+              );
+            })}
           </Form.Select>
           <br></br>
           <p>Date</p>
@@ -70,21 +102,42 @@ function ReservaButton() {
           <Button variant="secondary" onClick={handleClose}>
             Close
           </Button>
-          <Button variant="success" onClick={sendRequest}>
-            Make reservation
-          </Button>
+          {date && hour && plate ? (
+            <Button variant="success" onClick={sendRequest}>
+              Make reservation
+            </Button>
+          ) : (
+            <Button disabled variant="success" onClick={sendRequest}>
+              Make reservation
+            </Button>
+          )}
         </Modal.Footer>
       </Modal>
     </>
   );
 }
-export function PopupContent() {
+export function PopupContent(props) {
+  const { parkingInfo } = props;
   return (
     <div className="popup_container">
       {/*Espacio para nombre del parqueadero, dias abiertos y hora de servicio */}
-      <NameOpenDay />
+      <NameOpenDay
+        name={parkingInfo.parking_name}
+        openDays={parkingInfo.open_days}
+        openHour={parkingInfo.opening_hour}
+        closeHour={parkingInfo.closing_hour}
+      />
       <hr />
-      <Spaces />
+      <Spaces
+        priceCar={parkingInfo.hour_price_car}
+        priceMotorcycle={parkingInfo.hour_price_motorcycle}
+        spaceCar={parkingInfo.parkingSpace.spaces_car}
+        spaceMotorcycle={parkingInfo.parkingSpace.spaces_motorcycle}
+        availableCar={parkingInfo.parkingSpace.available_spaces_car}
+        availableMotorcycle={
+          parkingInfo.parkingSpace.available_spaces_motorcycle
+        }
+      />
       <hr />
       <RatingStars />
       <hr />

@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
 import { Markers } from "../Markers";
-
+import { getParkins } from "../../../services";
+import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
 
@@ -14,7 +15,31 @@ import "./MapView.css";
  * @returns Retorna la vista del mapa
  */
 export function MapView() {
+  const [parkingInfo, setParkingInfo] = useState([]);
   const centerMap = [5.06814396941135, -75.5173278840628];
+
+  const fillData = async () => {
+    let data = await getParkins()
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    setParkingInfo(data);
+  };
+
+  useEffect(() => {
+    try {
+      fillData();
+    } catch (error) {
+      console.log(error);
+    }
+    return () => {};
+  }, []);
+
+  console.log(parkingInfo);
+
   return (
     <MapContainer zoom={16} center={centerMap}>
       <TileLayer
@@ -22,7 +47,20 @@ export function MapView() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker />
-      <Markers coords={centerMap} />
+      {parkingInfo ? (
+        parkingInfo.map((parking) => (
+          <Markers
+            key={parking.id}
+            coords={[
+              parseFloat(parking.adress.latitude),
+              parseFloat(parking.adress.longitude),
+            ]}
+            parkingInfo={parking}
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </MapContainer>
   );
 }

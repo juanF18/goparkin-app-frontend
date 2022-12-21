@@ -1,15 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Badge, Button, Table } from "react-bootstrap";
 import { FaAlignJustify, FaEye } from "react-icons/fa";
+import { getParkingDocuments, getOnePerson } from "../../../services";
 import { ModalViewDocuments } from "../ModaViewDocuments";
 import "./ListDocuments.css";
 
 export function ListDocuments() {
-  const [showModal, setShowModal] = useState(true);
+  const [showModal, setShowModal] = useState(false);
+  const [parkingsData, setParkingsData] = useState([]);
+
+  const getDataDocuments = async () => {
+    let users = await getParkingDocuments()
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    //let person = await getOnePerson(docs.id_people);
+    console.log(users);
+    setParkingsData(users);
+    //console.log(person);
+  };
+
+  const colorStatus = (status) => {
+    if (status == "Pending") {
+      return "warning";
+    } else if (status == "Approved") {
+      return "success";
+    } else {
+      return "danger";
+    }
+  };
 
   const onClickShow = () => {
     setShowModal(true);
   };
+
+  useEffect(() => {
+    getDataDocuments();
+    return () => {};
+  }, []);
 
   return (
     <>
@@ -21,58 +52,30 @@ export function ListDocuments() {
               <th>Owner</th>
               <th>Parking</th>
               <th>Status</th>
+              <th>Comment</th>
               <th>Document</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>Heidy</td>
-              <td>Super park</td>
-              <td>
-                <h5>
-                  <Badge bg="warning" text="dark">
-                    Pending
-                  </Badge>
-                </h5>
-              </td>
-              <td>
-                <span className="show_doc" onClick={onClickShow}>
-                  <FaEye style={{ fontSize: "25px" }} />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Sebas</td>
-              <td>Parking anithing</td>
-              <td>
-                <h5>
-                  <Badge bg="danger" text="dark">
-                    Rejected
-                  </Badge>
-                </h5>
-              </td>
-              <td>
-                <span className="show_doc" onClick={onClickShow}>
-                  <FaEye style={{ fontSize: "25px" }} />
-                </span>
-              </td>
-            </tr>
-            <tr>
-              <td>Topo</td>
-              <td>The parking</td>
-              <td>
-                <h5>
-                  <Badge bg="success" text="dark">
-                    Aproved
-                  </Badge>
-                </h5>
-              </td>
-              <td>
-                <span className="show_doc" onClick={onClickShow}>
-                  <FaEye style={{ fontSize: "25px" }} />
-                </span>
-              </td>
-            </tr>
+            {parkingsData.map((data) => (
+              <tr>
+                <td key={data.person.id}>{data.person.name}</td>
+                <td key={data.id}>{data.parking_name}</td>
+                <td key={data.document.id}>
+                  <h5>
+                    <Badge bg={colorStatus(data.document.status)} text="dark">
+                      {data.document.status}
+                    </Badge>
+                  </h5>
+                </td>
+                <td key={data.document.id}>{data.document.comment}</td>
+                <td>
+                  <span className="show_doc" onClick={onClickShow}>
+                    <FaEye style={{ fontSize: "25px" }} />
+                  </span>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </Table>
       </div>

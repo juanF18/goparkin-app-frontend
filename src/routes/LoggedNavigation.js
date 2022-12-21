@@ -10,6 +10,7 @@ import {
   AdminRols,
   Documents,
   PermissionAdmin
+  ParkingOwner,
 } from "../pages";
 
 /**
@@ -25,9 +26,10 @@ export function LoggedNavigation() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/resetPassword" element={<ResetPassword />} />
-          <Route path="/adminRols" element={<AdminRols />} />
+          <Route path="/roles" element={<AdminRols />} />
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/parkingOwner" element={<ParkingOwner />} />
           <Route path="/documents" element={<Documents />} />
           <Route path="/permissionAdmin" element={<PermissionAdmin />} />
         </Routes>
