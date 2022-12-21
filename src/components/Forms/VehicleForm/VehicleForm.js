@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Col, Form, Row } from "react-bootstrap";
 
-
 export function VehicleForm(props) {
   const { errors, handleChange } = props;
   return (
@@ -19,7 +18,8 @@ export function VehicleForm(props) {
           name="vehicle.type"
           type="text"
           onChange={handleChange}
-          isInvalid={errors ? !!errors.type : ""} />
+          isInvalid={errors ? !!errors.type : ""}
+        />
         <Form.Control.Feedback type="invalid">
           {errors ? errors.plate : ""}
         </Form.Control.Feedback>
@@ -31,7 +31,8 @@ export function VehicleForm(props) {
           name="vehicle.plate"
           type="text"
           onChange={handleChange}
-          isInvalid={errors ? !!errors.plate : ""} />
+          isInvalid={errors ? !!errors.plate : ""}
+        />
         <Form.Control.Feedback type="invalid">
           {errors ? errors.plate : ""}
         </Form.Control.Feedback>

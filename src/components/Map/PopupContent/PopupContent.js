@@ -78,13 +78,28 @@ function ReservaButton() {
     </>
   );
 }
-export function PopupContent() {
+export function PopupContent(props) {
+  const { parkingInfo } = props;
   return (
     <div className="popup_container">
       {/*Espacio para nombre del parqueadero, dias abiertos y hora de servicio */}
-      <NameOpenDay />
+      <NameOpenDay
+        name={parkingInfo.parking_name}
+        openDays={parkingInfo.open_days}
+        openHour={parkingInfo.opening_hour}
+        closeHour={parkingInfo.closing_hour}
+      />
       <hr />
-      <Spaces />
+      <Spaces
+        priceCar={parkingInfo.hour_price_car}
+        priceMotorcycle={parkingInfo.hour_price_motorcycle}
+        spaceCar={parkingInfo.parkingSpace.spaces_car}
+        spaceMotorcycle={parkingInfo.parkingSpace.spaces_motorcycle}
+        availableCar={parkingInfo.parkingSpace.available_spaces_car}
+        availableMotorcycle={
+          parkingInfo.parkingSpace.available_spaces_motorcycle
+        }
+      />
       <hr />
       <RatingStars />
       <hr />

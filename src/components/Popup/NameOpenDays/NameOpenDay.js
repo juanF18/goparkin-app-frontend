@@ -1,12 +1,15 @@
 import React from "react";
 import "./NameOpenDays.css";
 
-export function NameOpenDay() {
+export function NameOpenDay(props) {
+  const { name, openDays, openHour, closeHour } = props;
   return (
     <div className="popup_name_open">
-      <h4>Nombre (Abierto)</h4>
-      <strong>Dias abiertos: </strong>Lunes-Martes-Miercoles <br />
-      <strong>Hora de servicio: </strong> 7am - 7pm
+      <h4>{name} (Abierto)</h4>
+      <strong>Dias abiertos: </strong>
+      {openDays}
+      <br />
+      <strong>Hora de servicio: </strong> {openHour} - {closeHour}
     </div>
   );
 }
