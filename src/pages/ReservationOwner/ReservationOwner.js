@@ -40,13 +40,21 @@ export function ReservationOwner({ data, setData }) {
     }
     if (content === "Pending") {
       return (
-        <Button variant="warning" onClick={() => handle(content)}>
+        <Button
+          variant="warning"
+          onClick={() => handle(content)}
+          style={{ width: "100px" }}
+        >
           {content}
         </Button>
       );
     } else {
       return (
-        <Button variant="success" onClick={() => handle(content)}>
+        <Button
+          variant="success"
+          onClick={() => handle(content)}
+          style={{ width: "100px" }}
+        >
           {content}
         </Button>
       );
@@ -55,8 +63,10 @@ export function ReservationOwner({ data, setData }) {
 
   return (
     <>
-      <h3>Owner</h3>
-      <table className="table">
+      <table
+        style={{ marginTop: "20px", textAlign: "center" }}
+        className="table table-striped table-bordered"
+      >
         <thead>
           <tr>
             <th scope="col">User name</th>
@@ -73,7 +83,7 @@ export function ReservationOwner({ data, setData }) {
             return (
               <tr key={item.id}>
                 {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
-                <td>{item.date}</td>
+                <td>{item.date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</td>
                 <td>{item.hour}</td>
                 <td>{item.plate}</td>
 

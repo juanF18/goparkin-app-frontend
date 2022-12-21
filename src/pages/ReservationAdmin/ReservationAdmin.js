@@ -1,20 +1,22 @@
 import { DeletePopUp } from "../../components/Popup/DeletePopUp";
 import { UpdateReservationPopUp } from "../../components/Popup/UpdateReservationPopUp";
+import { Badge } from "react-bootstrap";
 
 export function ReservationAdmin({ data, setData }) {
   //si es admin se muestra esta parte
 
   return (
     <>
-      <h3>Admin</h3>
-
-      <table className="table">
+      <table
+        style={{ marginTop: "20px", textAlign: "center" }}
+        className="table table-striped table-bordered"
+      >
         <thead>
           <tr>
             <th scope="col">Reservation id</th>
 
             <th scope="col">Parking id</th>
-            <th scope="col">User name</th>
+            <th scope="col">User Id</th>
             <th scope="col">Date</th>
             <th scope="col">Hour</th>
             <th scope="col">Plate</th>
@@ -40,12 +42,24 @@ export function ReservationAdmin({ data, setData }) {
                 ) : (
                   <td>{item.id_people}</td>
                 )}
-                <td>{item.date}</td>
+                <td>{item.date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</td>
                 <td>{item.hour}</td>
                 <td>{item.plate}</td>
-                <td>{item.status}</td>
-                <td>{item.created_at}</td>
-                <td>{item.updated_at}</td>
+                {item.status.toLowerCase() == "pending" ? (
+                  <td>
+                    <Badge style={{ width: "80px" }} bg="warning" text="dark">
+                      {item.status}
+                    </Badge>
+                  </td>
+                ) : (
+                  <td>
+                    <Badge style={{ width: "80px" }} bg="success">
+                      {item.status}
+                    </Badge>
+                  </td>
+                )}
+                <td>{item.created_at.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</td>
+                <td>{item.updated_at.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</td>
                 <td>
                   <DeletePopUp
                     title="reservation"

@@ -20,6 +20,7 @@ export function RegisterMapView({
   setDepartment,
   setAddress,
   setCoordinates,
+  parkingName,
 }) {
   const [centerMap, setCenterMap] = useState([
     5.06814396941135, -75.5173278840628,
