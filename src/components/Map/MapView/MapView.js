@@ -30,7 +30,11 @@ export function MapView() {
   };
 
   useEffect(() => {
-    fillData();
+    try {
+      fillData();
+    } catch (error) {
+      console.log(error);
+    }
     return () => {};
   }, []);
 
@@ -43,7 +47,7 @@ export function MapView() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       <LocationMarker />
-      {parkingInfo.length != 0 ? (
+      {parkingInfo ? (
         parkingInfo.map((parking) => (
           <Markers
             key={parking.id}

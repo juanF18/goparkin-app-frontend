@@ -13,10 +13,18 @@ import { PopupContent } from "../PopupContent";
 
 export function Markers(props) {
   const { coords, parkingInfo } = props;
-  return coords === null ? null : (
+  return coords.length === 0 ? (
     <>
       <Marker
-        position={coords}
+        position={[5.06814396941135, -75.5173278840628]}
+        icon={IconPinCreation(ParkingPin)}
+        autoPan={true}
+      ></Marker>
+    </>
+  ) : (
+    <>
+      <Marker
+        position={coords ? coords : []}
         icon={IconPinCreation(ParkingPin)}
         autoPan={true}
       >

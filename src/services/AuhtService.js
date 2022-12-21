@@ -8,9 +8,14 @@ export async function LoginRequest(email, password) {
       "Content-Type": "application/json",
     })
     .then((res) => {
-      localStorage.setItem("token", res.data.token.token);
-      localStorage.setItem("typeUser", res.data.user.rol.name);
-      return true;
+      if (res.data.token.token) {
+        console.log(res.data);
+        localStorage.setItem("token", res.data.token.token);
+        localStorage.setItem("typeUser", JSON.stringify(res.data.user));
+        return true;
+      } else {
+        return false;
+      }
     })
     .catch((err) => {
       console.log(err);
