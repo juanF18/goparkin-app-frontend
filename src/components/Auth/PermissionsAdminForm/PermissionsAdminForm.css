@@ -1,0 +1,19 @@
+.title-PermissionsAdmin {
+    text-align: center;
+    padding: 15px 0 15px 0;
+  }
+  .btn-PermissionsAdmin {
+    margin-top: 10px;
+    text-transform: uppercase;
+    font-size: 15px;
+    width: 100%;
+  }
+
+  .list-permission {
+    padding: 30px;
+  }
+
+  .center-checkboxes{
+    justify-items: center;
+  }
+  

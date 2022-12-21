@@ -1,6 +1,7 @@
 export * from "./ReservationService";
 export * from "./RegisterService";
 export * from "./AuhtService";
+export * from "./RolPermissionService";
 export * from "./AdminRolsService";
 export * from "./VehicleService";
 export * from "./ParkingService";
