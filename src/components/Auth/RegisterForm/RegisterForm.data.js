@@ -7,6 +7,7 @@ export function initialValuesRegister(type) {
         phone: "",
         email: "",
         password: "",
+        confirm_password: "",
         parking: {
           id_people: "",
           parking_name: "",
@@ -36,6 +37,7 @@ export function initialValuesRegister(type) {
         phone: "",
         email: "",
         password: "",
+        confirm_password: "",
         vehicle: {
           id_people: "",
           type: "",
@@ -49,23 +51,24 @@ export function validationRegister(type) {
     ? Yup.object({
         name: Yup.string().required("Is required"),
         last_name: Yup.string().required("Is required"),
-        phone: Yup.number(),
+        phone: Yup.number().required("Is required").min(10).positive("Only positive numbers"),
         email: Yup.string()
           .required("Is required")
           .email("Invalid format Email"),
         password: Yup.string().required("Is required").min(6),
+        confirm_password: Yup.string().required("Is required").oneOf([Yup.ref("password"), null], "Passwords must match"),
 
         parking: Yup.object().shape({
           parking_name: Yup.string().required("Is required"),
-          hour_price_car: Yup.number().required("Is required"),
-          hour_price_motorcycle: Yup.number().required("Is required"),
-          opening_hour: Yup.number().required("Is required"),
-          closing_hour: Yup.number().required("Is required"),
+          hour_price_car: Yup.number().required("Is required").positive("Only positive numbers"),
+          hour_price_motorcycle: Yup.number().required("Is required").positive("Only positive numbers"),
+          opening_hour: Yup.string().required("Is required"),
+          closing_hour: Yup.string().required("Is required"),
         }),
 
         parkingSpace: Yup.object().shape({
-          spaces_car: Yup.number().required("Is required"),
-          spaces_motorcycle: Yup.number().required("Is required"),
+          spaces_car: Yup.number().required("Is required").positive("Only positive numbers"),
+          spaces_motorcycle: Yup.number().required("Is required").positive("Only positive numbers"),
           available_spaces_car: Yup.number(),
           available_spaces_motorcycle: Yup.number(),
         }),
@@ -81,11 +84,12 @@ export function validationRegister(type) {
     : Yup.object({
         name: Yup.string().required("Is required"),
         last_name: Yup.string().required("Is required"),
-        phone: Yup.number().required("Is required"),
+        phone: Yup.number().required("Is required").min(10).positive("Only positive numbers"),
         email: Yup.string()
           .required("Is required")
           .email("Invalid format Email"),
-        password: Yup.string().required("Es requerida").min(6),
+        password: Yup.string().required("Is required").min(6),
+        confirm_password: Yup.string().required("Is required").oneOf([Yup.ref("password"), null], "Passwords must match"),
 
         vehicle: Yup.object().shape({
           type: Yup.string().required("Is required"),

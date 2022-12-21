@@ -157,7 +157,7 @@ export function RegisterForm() {
       <Form onSubmit={formik.handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col}>
-            <Form.Label>First Name</Form.Label>
+            <Form.Label>Name *</Form.Label>
             <Form.Control
               name="name"
               type="text"
@@ -169,7 +169,7 @@ export function RegisterForm() {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Last Name</Form.Label>
+            <Form.Label>Last Name *</Form.Label>
             <Form.Control
               name="last_name"
               type="text"
@@ -181,10 +181,10 @@ export function RegisterForm() {
             </Form.Control.Feedback>
           </Form.Group>
           <Form.Group as={Col}>
-            <Form.Label>Phone</Form.Label>
+            <Form.Label>Phone *</Form.Label>
             <Form.Control
               name="phone"
-              type="text"
+              type="number"
               onChange={formik.handleChange}
               isInvalid={!!formik.errors.phone}
             />
@@ -195,7 +195,7 @@ export function RegisterForm() {
         </Row>
         <Row className="mb-3">
           <Form.Group as={Col}>
-            <Form.Label>Email</Form.Label>
+            <Form.Label>Email *</Form.Label>
             <Form.Control
               name="email"
               type="email"
@@ -210,7 +210,7 @@ export function RegisterForm() {
         </Row>
         <Row className="col-md">
           <Form.Group as={Col}>
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Password *</Form.Label>
             <Form.Control
               name="password"
               type="password"
@@ -231,10 +231,10 @@ export function RegisterForm() {
               type="password"
               placeholder="Confirm password"
               onChange={formik.handleChange}
-              isInvalid={!!formik.errors.password}
+              isInvalid={!!formik.errors.confirm_password}
             />
             <Form.Control.Feedback type="invalid">
-              {formik.errors.password}
+              {formik.errors.confirm_password}
             </Form.Control.Feedback>
           </Form.Group>
         </Row>

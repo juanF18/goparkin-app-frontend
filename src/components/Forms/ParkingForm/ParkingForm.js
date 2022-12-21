@@ -28,7 +28,7 @@ export function ParkingForm(props) {
       {/* Sector de nombre de parqueadero */}
       <Row className="mb-3">
         <Form.Group as={Col}>
-          <Form.Label>Parking name</Form.Label>
+          <Form.Label>Parking name *</Form.Label>
           <Form.Control
             type="text"
             name="parking.parking_name"
@@ -42,10 +42,10 @@ export function ParkingForm(props) {
       </Row>
       <Row>
         <Form.Group as={Col}>
-          <Form.Label>Hour Price Car</Form.Label>
+          <Form.Label>Hour Price Car *</Form.Label>
           <Form.Control
             name="parking.hour_price_car"
-            type="text"
+            type="number"
             onChange={handleChange}
             isInvalid={errors.parking ? !!errors.parking.hour_price_car : ""}
           />
@@ -54,10 +54,10 @@ export function ParkingForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col}>
-          <Form.Label>Hour Price Motorcycle</Form.Label>
+          <Form.Label>Hour Price Motorcycle *</Form.Label>
           <Form.Control
             name="parking.hour_price_motorcycle"
-            type="text"
+            type="number"
             onChange={handleChange}
             isInvalid={
               errors.parking ? !!errors.parking.hour_price_motorcycle : ""
@@ -68,7 +68,7 @@ export function ParkingForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col}>
-          <Form.Label>Opening Hour (24 Hours) </Form.Label>
+          <Form.Label>Opening Hour (24 Hours) *</Form.Label>
           <Form.Control
             name="parking.opening_hour"
             type="time"
@@ -80,7 +80,7 @@ export function ParkingForm(props) {
           </Form.Control.Feedback>
         </Form.Group>
         <Form.Group as={Col}>
-          <Form.Label>Closing Hour (24 Hours)</Form.Label>
+          <Form.Label>Closing Hour (24 Hours) *</Form.Label>
           <Form.Control
             name="parking.closing_hour"
             type="time"
@@ -95,7 +95,7 @@ export function ParkingForm(props) {
 
       <Row>
         <Form.Group as={Col}>
-          <Form.Label>Open days</Form.Label>
+          <Form.Label>Open days *</Form.Label>
           <div
             name="parking.open_days"
             key={"inline-checkbox"}
@@ -246,10 +246,10 @@ export function ParkingForm(props) {
 
       <Row className="mb-3">
         <Form.Group as={Col}>
-          <Form.Label>Car places</Form.Label>
+          <Form.Label>Car places *</Form.Label>
           <Form.Control
             name="parkingSpace.spaces_car"
-            type="text"
+            type="number"
             onChange={handleChange}
             isInvalid={
               errors.parkingSpace ? !!errors.parkingSpace.spaces_car : ""
@@ -261,10 +261,10 @@ export function ParkingForm(props) {
         </Form.Group>
 
         <Form.Group as={Col}>
-          <Form.Label>Motorcycle places</Form.Label>
+          <Form.Label>Motorcycle places *</Form.Label>
           <Form.Control
             name="parkingSpace.spaces_motorcycle"
-            type="text"
+            type="number"
             onChange={handleChange}
             isInvalid={
               errors.parkingSpace ? !!errors.parkingSpace.spaces_motorcycle : ""

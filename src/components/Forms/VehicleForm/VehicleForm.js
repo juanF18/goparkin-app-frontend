@@ -8,7 +8,7 @@ export function VehicleForm(props) {
       <h3>Add a vehicle</h3>
 
       <Form.Group as={Col}>
-        <Form.Label>Type</Form.Label>
+        <Form.Label>Type *</Form.Label>
         <Form.Select name="vehicle.type" onChange={handleChange}>
           <option value=""></option>
           <option value="motorcycle">Motorcycle</option>
@@ -26,7 +26,7 @@ export function VehicleForm(props) {
       </Form.Group>
 
       <Form.Group as={Col}>
-        <Form.Label>Plate</Form.Label>
+        <Form.Label>Plate *</Form.Label>
         <Form.Control
           name="vehicle.plate"
           type="text"
