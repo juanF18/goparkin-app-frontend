@@ -9,6 +9,7 @@ import {
   ResetPassword,
   AdminRols,
   Documents,
+  PermissionAdmin
 } from "../pages";
 
 /**
@@ -28,6 +29,7 @@ export function LoggedNavigation() {
           <Route path="/reservations" element={<Reservation />} />
           <Route path="/register" element={<Register />} />
           <Route path="/documents" element={<Documents />} />
+          <Route path="/permissionAdmin" element={<PermissionAdmin />} />
         </Routes>
       </UnLoggedLayout>
     </BrowserRouter>

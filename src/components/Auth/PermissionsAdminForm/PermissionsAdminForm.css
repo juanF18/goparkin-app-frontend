@@ -12,4 +12,8 @@
   .list-permission {
     padding: 30px;
   }
+
+  .center-checkboxes{
+    justify-items: center;
+  }
   
