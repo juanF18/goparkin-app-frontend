@@ -31,6 +31,20 @@ export function NavBar() {
   const onLogout = () => {
     logout();
   };
+  const user = () => {
+    if (type == "owner") {
+      return (
+        <>
+          <Nav.Link as={Link} to="/roles">
+            Roles
+          </Nav.Link>
+          <Nav.Link as={Link} to="/reservations">
+            Reservations
+          </Nav.Link>
+        </>
+      );
+    }
+  };
 
   useEffect(() => {
     console.log(localStorage.getItem("typeUser"));
@@ -48,28 +62,29 @@ export function NavBar() {
             <Nav.Link as={Link} to="/" active={isCurrentPage("/")}>
               Home
             </Nav.Link>
-            <Nav.Link as={Link} to="/roles">
-              Roles
-            </Nav.Link>
-            <Nav.Link as={Link} to="/reservations">
-              Reservations
-            </Nav.Link>
+            {user()}
           </Nav>
           <Nav className="d-flex">
             {type === ("user" || "owner" || "admin") ? (
               <Nav.Link onClick={onLogout}>Logout</Nav.Link>
             ) : (
-              <Nav.Link as={Link} to="/login" active={isCurrentPage("/login")}>
-                Sign in
-              </Nav.Link>
+              <>
+                <Nav.Link
+                  as={Link}
+                  to="/login"
+                  active={isCurrentPage("/login")}
+                >
+                  Sign in
+                </Nav.Link>
+                <Nav.Link
+                  as={Link}
+                  to="/register"
+                  active={isCurrentPage("/register")}
+                >
+                  Sign up
+                </Nav.Link>
+              </>
             )}
-            <Nav.Link
-              as={Link}
-              to="/register"
-              active={isCurrentPage("/register")}
-            >
-              Sign up
-            </Nav.Link>
           </Nav>
         </Container>
       </Navbar>
