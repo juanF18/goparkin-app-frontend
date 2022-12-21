@@ -4,3 +4,5 @@ export * from "./AuhtService";
 export * from "./AdminRolsService";
 export * from "./VehicleService";
 export * from "./ParkingService";
+export * from "./DocumentsService";
+export * from "./PeopleService";
