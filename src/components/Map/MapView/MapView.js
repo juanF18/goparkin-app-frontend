@@ -3,9 +3,9 @@ import { MapContainer, TileLayer, useMapEvents } from "react-leaflet";
 import { LocationMarker } from "../LocationMarker";
 import { Markers } from "../Markers";
 import { getParkins } from "../../../services";
+import { useEffect } from "react";
 import "leaflet/dist/leaflet.css";
 import "./MapView.css";
-import { useEffect } from "react";
 
 /**
  * Funcion que nos retorna el mapa y donde configuramos
