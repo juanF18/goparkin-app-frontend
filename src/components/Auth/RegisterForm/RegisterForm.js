@@ -34,14 +34,21 @@ export function RegisterForm() {
     validateOnChange: false,
 
     onSubmit: async (values) => {
-
       let id_rol = ownerOrUser ? 2 : 1;
 
       if (ownerOrUser == true) {
-
         // Registro de un usuario y su parqueadero
 
         // Se obtienen los valores del mapa
+        values.parking.open_days = openDays;
+
+        values.parkingSpace = {
+          spaces_car: values.parkingSpace.spaces_car,
+          spaces_motorcycle: values.parkingSpace.spaces_motorcycle,
+          available_spaces_car: values.parkingSpace.spaces_car,
+          available_spaces_motorcycle: values.parkingSpace.spaces_motorcycle,
+        };
+
         values.address = {
           adress: address,
           city: city,
@@ -55,19 +62,18 @@ export function RegisterForm() {
         values.document = {
           url: "url",
           comment: "Comentario",
-          status: "Status"
+          status: "Status",
         };
 
         try {
-          await storeRegister
-            (
-              id_rol,
-              values.name,
-              values.last_name,
-              values.phone,
-              values.email,
-              values.password
-            )
+          await storeRegister(
+            id_rol,
+            values.name,
+            values.last_name,
+            values.phone,
+            values.email,
+            values.password
+          )
             .then(async (res) => {
               /*
                 Modifica el id_people del parqueadero para actualizar
@@ -75,77 +81,63 @@ export function RegisterForm() {
               */
               values.parking.id_people = res.data.id;
               try {
-                await storeParking
-                  (
-                    values.parking,
-                    values.address,
-                    values.parkingSpace,
-                    values.document
-                  )
+                await storeParking(
+                  values.parking,
+                  values.address,
+                  values.parkingSpace,
+                  values.document
+                )
                   .then((res) => {
                     alert("Registration completed, check your email");
                   })
                   .catch((err) => {
                     console.log(err);
-                  })
-              }
-              catch {
-              }
+                  });
+              } catch {}
               navigate("/login");
-            }
-            )
+            })
             .catch((err) => {
               console.log(err);
             });
-        }
-        catch (error) {
+        } catch (error) {
           alert(`${error} - Error al registrar usuario`);
         }
-
-      }
-      else {
-
+      } else {
         // Registro de un usuario y su vehículo
 
         try {
-          await storeRegister
-            (
-              id_rol,
-              values.name,
-              values.last_name,
-              values.phone,
-              values.email,
-              values.password
-            )
+          await storeRegister(
+            id_rol,
+            values.name,
+            values.last_name,
+            values.phone,
+            values.email,
+            values.password
+          )
             .then(async (res) => {
               try {
-                await storeVehicle
-                  (
-                    res.data.id,
-                    values.vehicle.type,
-                    values.vehicle.plate
-                  )
+                await storeVehicle(
+                  res.data.id,
+                  values.vehicle.type,
+                  values.vehicle.plate
+                )
                   .then((res) => {
                     alert("Registration completed, check your email");
                   })
                   .catch((err) => {
                     console.log(err);
-                  })
-              }
-              catch {
-              }
+                  });
+              } catch {}
               navigate("/login");
-            }
-            )
+            })
             .catch((err) => {
               console.log(err);
             });
-        }
-        catch (error) {
+        } catch (error) {
           alert(`${error} - Error al registrar usuario`);
         }
       }
-    }
+    },
   });
 
   return (

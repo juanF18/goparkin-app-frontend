@@ -71,7 +71,7 @@ export function ParkingForm(props) {
           <Form.Label>Opening Hour (24 Hours) </Form.Label>
           <Form.Control
             name="parking.opening_hour"
-            text="number"
+            type="time"
             onChange={handleChange}
             isInvalid={errors.parking ? !!errors.parking.opening_hour : ""}
           />
@@ -83,7 +83,7 @@ export function ParkingForm(props) {
           <Form.Label>Closing Hour (24 Hours)</Form.Label>
           <Form.Control
             name="parking.closing_hour"
-            text="number"
+            type="time"
             onChange={handleChange}
             isInvalid={errors.parking ? !!errors.parking.closing_hour : ""}
           />

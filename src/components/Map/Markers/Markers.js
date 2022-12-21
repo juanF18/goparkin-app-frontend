@@ -13,7 +13,6 @@ import { PopupContent } from "../PopupContent";
 
 export function Markers(props) {
   const { coords, parkingInfo } = props;
-  console.log(coords);
   return coords === null ? null : (
     <>
       <Marker
