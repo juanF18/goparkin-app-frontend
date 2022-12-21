@@ -14,7 +14,7 @@ export function ParkingForm(props) {
     cityState,
   } = props;
 
-  console.log(openDaysState.openDays);
+  //console.log(openDaysState.openDays);
   const handleDays = (event) => {
     if (openDaysState.setOpenDays) {
       openDaysState.setOpenDays((day) =>

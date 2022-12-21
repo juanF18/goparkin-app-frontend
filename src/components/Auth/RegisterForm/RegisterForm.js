@@ -4,9 +4,8 @@ import { Col, Form, Row, Button } from "react-bootstrap";
 import { ParkingForm, VehicleForm } from "../../Forms";
 import { useFormik } from "formik";
 import { initialValuesRegister, validationRegister } from "./RegisterForm.data";
-import { storeRegister } from "../../../services";
-import { storeVehicle } from "../../../services";
-//import { storeRegister } from "../../../services";
+import { storeRegister, storeVehicle, storeParking } from "../../../services";
+import { Link, useNavigate } from "react-router-dom";
 
 export function RegisterForm() {
   const [ownerOrUser, setOwnerOrUser] = useState(false);
@@ -16,6 +15,7 @@ export function RegisterForm() {
   const [department, setDepartment] = useState("");
   const [coordinates, setCoordinates] = useState([]);
   const [idPeople, setIdPeople] = useState(null);
+  const navigate = useNavigate();
 
   /**
    * false : usuario
@@ -32,73 +32,120 @@ export function RegisterForm() {
     initialValues: initialValuesRegister(ownerOrUser),
     validationSchema: validationRegister(ownerOrUser),
     validateOnChange: false,
-    onSubmit:
-      ownerOrUser == true
-        ? (values) => {
-            let id_rol = "";
 
-            if (ownerOrUser) {
-              // Owner
-              id_rol = "2";
-            } else {
-              // User
-              id_rol = "1";
-            }
-            if (ownerOrUser == true) {
-              console.log("entre a dueño");
-              values.parking.open_days = openDays;
-              values.address = {
-                adress: address,
-                city: city,
-                department: department,
-                latitude: coordinates[0],
-                longitude: coordinates[1],
-              };
+    onSubmit: async (values) => {
 
-              console.log(values);
-            }
-          }
-        : async (values) => {
-            let id_rol = "";
+      let id_rol = ownerOrUser ? 2 : 1;
 
-            if (ownerOrUser) {
-              // Owner
-              id_rol = "2";
-            } else {
-              // User
-              id_rol = "1";
-            }
-            try {
-              await storeRegister(
-                id_rol,
-                values.name,
-                values.last_name,
-                values.phone,
-                values.email,
-                values.password
-              )
-                .then(async (res) => {
-                  setIdPeople(await res.data.id);
-                  await storeVehicle(
-                    idPeople,
-                    values.vehicle.plate,
-                    values.vehicle.type
+      if (ownerOrUser == true) {
+
+        // Registro de un usuario y su parqueadero
+
+        // Se obtienen los valores del mapa
+        values.address = {
+          adress: address,
+          city: city,
+          department: department,
+          latitude: coordinates[0],
+          longitude: coordinates[1],
+        };
+
+        // Se obtienen los valores del documento
+        // ??? falta
+        values.document = {
+          url: "url",
+          comment: "Comentario",
+          status: "Status"
+        };
+
+        try {
+          await storeRegister
+            (
+              id_rol,
+              values.name,
+              values.last_name,
+              values.phone,
+              values.email,
+              values.password
+            )
+            .then(async (res) => {
+              /*
+                Modifica el id_people del parqueadero para actualizar
+                el usuario ya registrado
+              */
+              values.parking.id_people = res.data.id;
+              try {
+                await storeParking
+                  (
+                    values.parking,
+                    values.address,
+                    values.parkingSpace,
+                    values.document
                   )
-                    .then((res) => {
-                      console.log("Se guardo el vehiculo");
-                      console.log(res.data);
-                    })
-                    .catch((err) => {
-                      console.log(err);
-                    });
-                })
-                .catch((err) => {
-                  console.log(err);
-                });
-            } catch (error) {
-              console.log(error);
+                  .then((res) => {
+                    alert("Registration completed, check your email");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
+              }
+              catch {
+              }
+              navigate("/login");
             }
-          },
+            )
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        catch (error) {
+          alert(`${error} - Error al registrar usuario`);
+        }
+
+      }
+      else {
+
+        // Registro de un usuario y su vehículo
+
+        try {
+          await storeRegister
+            (
+              id_rol,
+              values.name,
+              values.last_name,
+              values.phone,
+              values.email,
+              values.password
+            )
+            .then(async (res) => {
+              try {
+                await storeVehicle
+                  (
+                    res.data.id,
+                    values.vehicle.type,
+                    values.vehicle.plate
+                  )
+                  .then((res) => {
+                    alert("Registration completed, check your email");
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  })
+              }
+              catch {
+              }
+              navigate("/login");
+            }
+            )
+            .catch((err) => {
+              console.log(err);
+            });
+        }
+        catch (error) {
+          alert(`${error} - Error al registrar usuario`);
+        }
+      }
+    }
   });
 
   return (
@@ -169,7 +216,7 @@ export function RegisterForm() {
             </Form.Control.Feedback>
           </Form.Group>
         </Row>
-        <Row className="mb-3">
+        <Row className="col-md">
           <Form.Group as={Col}>
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -185,7 +232,7 @@ export function RegisterForm() {
           </Form.Group>
 
           {/* Confirm Password */}
-          <Form.Group className="col-md-4" controlId="formBasicConfirmPassword">
+          <Form.Group className="col-md" controlId="formBasicConfirmPassword">
             <Form.Label>Confirm Password *</Form.Label>
             <Form.Control
               name="confirm_password"
