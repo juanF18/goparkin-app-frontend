@@ -63,7 +63,6 @@ export function ReservationOwner({ data, setData }) {
 
   return (
     <>
-      <h3>Owner</h3>
       <table
         style={{ marginTop: "20px", textAlign: "center" }}
         className="table table-striped table-bordered"

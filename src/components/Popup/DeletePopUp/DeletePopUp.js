@@ -31,6 +31,7 @@ export function DeletePopUp(props) {
         className="btn-reservation btn-c"
         variant="danger"
         onClick={handleShow}
+        style={{ width: "100px" }}
       >
         Delete
       </Button>

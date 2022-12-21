@@ -7,8 +7,6 @@ export function ReservationAdmin({ data, setData }) {
 
   return (
     <>
-      <h3>Admin</h3>
-
       <table
         style={{ marginTop: "20px", textAlign: "center" }}
         className="table table-striped table-bordered"
@@ -18,7 +16,7 @@ export function ReservationAdmin({ data, setData }) {
             <th scope="col">Reservation id</th>
 
             <th scope="col">Parking id</th>
-            <th scope="col">User name</th>
+            <th scope="col">User Id</th>
             <th scope="col">Date</th>
             <th scope="col">Hour</th>
             <th scope="col">Plate</th>

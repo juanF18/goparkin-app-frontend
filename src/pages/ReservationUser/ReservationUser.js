@@ -2,18 +2,16 @@ import { Badge } from "react-bootstrap";
 import { DeletePopUp } from "../../components/Popup/DeletePopUp";
 import { UpdateReservationPopUp } from "../../components/Popup/UpdateReservationPopUp";
 
-export function ReservationUser({ data, setData }) {
+export function ReservationUser({ data, setData, IDUSER }) {
   return (
     <>
-      <h3>User</h3>
       <table
         style={{ marginTop: "20px", textAlign: "center" }}
         className="table table-striped table-bordered"
       >
         <thead>
           <tr>
-            <th scope="col">parking_id</th>
-            <th scope="col">User name</th>
+            <th scope="col">Parking id</th>
             <th scope="col">Date</th>
             <th scope="col">Hour</th>
             <th scope="col">Plate</th>
@@ -32,7 +30,6 @@ export function ReservationUser({ data, setData }) {
                 ) : (
                   <td>{item.id_parking}</td>
                 )}
-                {item.id_user == null ? <td>null</td> : <td>{item.id_user}</td>}
                 <td>{item.date.match(/[0-9]{4}-[0-9]{2}-[0-9]{2}/)}</td>
                 <td>{item.hour}</td>
                 <td>{item.plate}</td>
@@ -69,6 +66,7 @@ export function ReservationUser({ data, setData }) {
                     id_parking={item.id_parking}
                     data={data}
                     setData={setData}
+                    IDUSER={IDUSER}
                   />
                 </td>
               </tr>

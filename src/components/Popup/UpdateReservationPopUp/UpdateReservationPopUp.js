@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Modal } from "react-bootstrap";
 export function UpdateReservationPopUp({
   userType,
@@ -12,8 +12,9 @@ export function UpdateReservationPopUp({
   id_parking,
   data,
   setData,
+  IDUSER,
 }) {
-  //lo utiliza el actor tipo "user" y "admin"
+  //lo utiliza el actor tipo "user" y "admin", la variable userType almacena el tipo
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -35,6 +36,8 @@ export function UpdateReservationPopUp({
   // const [idUser, setIdUser] = useState(id_people);
 
   const [statusUser, setStatusUser] = useState(status);
+
+  const [vehiclesPlates, setVehiclesPlates] = useState([]);
 
   // function returnDateInputFormat(date) {
   //   let month = date[0] + date[1];
@@ -88,6 +91,27 @@ export function UpdateReservationPopUp({
     // alert("Enviando formulario");
   }
 
+  useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_BACKENDURL}/vehicle`)
+      .then(function (response) {
+        if (userType.toLowerCase() == "user") {
+          function check(item) {
+            return item.id_people == IDUSER;
+          }
+          let temp = [...response.data];
+          temp = temp.filter(check);
+          setVehiclesPlates(temp);
+        } else if (userType.toLowerCase() == "admin") {
+          setVehiclesPlates(response.data);
+        }
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      });
+  }, []);
+
   return (
     <>
       {userType === "admin" ? (
@@ -122,10 +146,9 @@ export function UpdateReservationPopUp({
             }}
             value={plateUser}
           >
-            <option>Choose your vehicle</option>
-            <option value="CAD123">CAD 123</option>
-            <option value="VEH512">VEH 512</option>
-            <option value="ABC567">ABC 567</option>
+            {vehiclesPlates.map((item) => {
+              return <option value={item.plate}>{item.plate}</option>;
+            })}
           </Form.Select>
           <br></br>
           <p>Date</p>
