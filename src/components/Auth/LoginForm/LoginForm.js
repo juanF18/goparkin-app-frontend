@@ -9,6 +9,7 @@ import "./LoginForm.css";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
   const navigate = useNavigate();
   /**
    * Libreria usada para que se pueda hacer maenejo de los formularios
@@ -20,14 +21,24 @@ export function LoginForm() {
    * donde le damos las validaciones al formulario como seria que tiene
    * que ser tipo correo o lo que se tiene que ingresar es un string
    */
+  const loginRes = async (email, password) => {
+    let data = await LoginRequest(email, password);
+    console.log(data);
+    setIsLogged(data);
+  };
   const formik = useFormik({
     initialValues: initalValuesLogin(),
     validationSchema: validationSchemaLogin(),
     validateOnChange: false,
     onSubmit: async (formValues) => {
       try {
-        await LoginRequest(formValues.email, formValues.password);
-        navigate("/");
+        await loginRes(formValues.email, formValues.password);
+        if (localStorage.getItem("token")) {
+          alert("Iniciaste sesión");
+          navigate("/");
+        } else {
+          alert("Usuario o contraseña invalido");
+        }
       } catch (error) {
         alert(error + "Error al iniciar sesion");
       }
