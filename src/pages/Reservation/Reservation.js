@@ -13,7 +13,7 @@ import { ReservationUser } from "../ReservationUser";
 export function Reservation() {
   ///////////////////////////////////////////////////////
   const IDUSER = 8; //este valor se modifica segun el id de cada usuario
-  const IDROL = 2; //este valor se modifica segun el id_rol de cada usuario
+  const IDROL = 3; //este valor se modifica segun el id_rol de cada usuario
   const IDPARK = 1; //si es owner necesitamos saber el id de su parqueadero
 
   let userT = "";
